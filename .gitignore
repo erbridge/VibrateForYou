@@ -1,0 +1,9 @@
+/Library/
+/Temp/
+/packages/
+
+*.csproj
+*.sln
+
+*.meta
+!*.*.meta
