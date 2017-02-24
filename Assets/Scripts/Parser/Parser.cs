@@ -9,7 +9,7 @@ public class Parser {
     private State _state;
     private Dictionary<string, Page> _pages;
 
-    public Parser(string name) {
+    public Parser(string name, string firstPage) {
         this._state = new State();
         this._pages = new Dictionary<string, Page>();
 
@@ -37,33 +37,29 @@ public class Parser {
             this._pages.Add(title, new Page(rawScriptSection));
         }
 
-        this.RunPageCommands("startconvo");
-
-        foreach (string s in this.GetPageStatements("startconvo")) {
-            Debug.Log(s);
-        }
-
-        foreach (KeyValuePair<string, string> kvp in this.GetPageChoices(
-            "startconvo"
-        )) {
-            Debug.Log(kvp.Key + " -> " + kvp.Value);
-        }
+        this.SetPage(firstPage);
     }
 
-    public void RunPageCommands(string title) {
-        Page page = this._pages[title];
+    public void SetPage(string title) {
+        this._state.SetPage(title);
+
+        this.RunPageCommands();
+    }
+
+    private void RunPageCommands() {
+        Page page = this._pages[this._state.GetPage()];
 
         List<Command> commands = page.GetCommands();
 
         foreach (Command command in commands) {
             if (command.Execute(this._state)) {
-                Debug.Log(command);
+                Debug.Log("Ran " + command);
             }
         }
     }
 
-    public List<string> GetPageStatements(string title) {
-        Page page = this._pages[title];
+    public List<string> GetPageStatements() {
+        Page page = this._pages[this._state.GetPage()];
 
         List<Statement> statements = page.GetStatements();
 
@@ -80,8 +76,8 @@ public class Parser {
         return output;
     }
 
-    public List<KeyValuePair<string, string> > GetPageChoices(string title) {
-        Page page = this._pages[title];
+    public List<KeyValuePair<string, string> > GetPageChoices() {
+        Page page = this._pages[this._state.GetPage()];
 
         List<Choice> choices = page.GetChoices();
 
