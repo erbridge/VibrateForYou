@@ -3,6 +3,8 @@ using System.Text.RegularExpressions;
 using System;
 using UnityEngine;
 
+namespace Parser {
+
 public class Page {
 
     private List<Command>   _commands;
@@ -16,14 +18,14 @@ public class Page {
         this._choices    = new List<Choice>();
 
         Regex commandRegex = new Regex(
-            @"\((?<verb>\w+?):(?<arguments>[^\)]+?)\)"
+            @"\((?<verb>\w+?):(?<args>[^\)]*?)\)"
         );
         Regex otherChoiceRegex = new Regex(
             @"\[\[(?<text>.+?)->(?<target>.+?)\]\]"
         );
         Regex selfChoiceRegex = new Regex(@"\[\[(?<target>.+)\]\]");
 
-        Command condition = null;
+        ConditionalCommand condition = null;
 
         foreach (string rawLine in rawScript.Split('\n')) {
             string line = rawLine.Trim();
@@ -38,14 +40,17 @@ public class Page {
 
             if (match.Success) {
                 string verb = match.Groups["verb"].Value;
-                string arguments = match.Groups["arguments"].Value;
-
-                // Debug.Log("Command - " + verb + " : " + arguments);
+                string args = match.Groups["args"].Value;
 
                 if ((verb == "if") || (verb == "elseif") || (verb == "else")) {
-                    condition = new Command(verb, arguments, null, condition);
-                } else {
-                    this._commands.Add(new Command(verb, arguments, condition));
+                    condition = new ConditionalCommand(
+                        verb,
+                        args,
+                        null,
+                        condition
+                    );
+                } else if (verb == "set") {
+                    this._commands.Add(new SetCommand(args, condition));
                 }
 
                 continue;
@@ -78,18 +83,20 @@ public class Page {
 
             this._statements.Add(new Statement(line, condition));
         }
+    }
 
-        foreach (Command command in this._commands) {
-            Debug.Log(command.ToString());
-        }
+    public List<Command> GetCommands() {
+        return this._commands;
+    }
 
-        foreach (Statement statement in this._statements) {
-            Debug.Log(statement.ToString());
-        }
+    public List<Statement> GetStatements() {
+        return this._statements;
+    }
 
-        foreach (Choice choice in this._choices) {
-            Debug.Log(choice.ToString());
-        }
+    public List<Choice> GetChoices() {
+        return this._choices;
     }
 
 }
+
+}  // namespace Parser
