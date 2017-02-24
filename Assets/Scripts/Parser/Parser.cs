@@ -43,8 +43,10 @@ public class Parser {
             Debug.Log(s);
         }
 
-        foreach (string s in this.GetPageChoices("startconvo")) {
-            Debug.Log(s);
+        foreach (KeyValuePair<string, string> kvp in this.GetPageChoices(
+            "startconvo"
+        )) {
+            Debug.Log(kvp.Key + " -> " + kvp.Value);
         }
     }
 
@@ -54,9 +56,9 @@ public class Parser {
         List<Command> commands = page.GetCommands();
 
         foreach (Command command in commands) {
-            command.Execute(this._state);
-
-            Debug.Log(command);
+            if (command.Execute(this._state)) {
+                Debug.Log(command);
+            }
         }
     }
 
@@ -68,7 +70,7 @@ public class Parser {
         List<string> output = new List<string>();
 
         foreach (Statement statement in statements) {
-            string message = statement.Get(this._state);
+            string message = statement.GetText(this._state);
 
             if (message.Length > 0) {
                 output.Add(message);
@@ -78,18 +80,24 @@ public class Parser {
         return output;
     }
 
-    public List<string> GetPageChoices(string title) {
+    public List<KeyValuePair<string, string> > GetPageChoices(string title) {
         Page page = this._pages[title];
 
         List<Choice> choices = page.GetChoices();
 
-        List<string> output = new List<string>();
+        List<KeyValuePair<string, string> > output =
+        new List<KeyValuePair<string, string> >();
 
         foreach (Choice choice in choices) {
-            string message = choice.Get(this._state);
+            string message = choice.GetText(this._state);
 
             if (message.Length > 0) {
-                output.Add(message);
+                output.Add(
+                    new KeyValuePair<string, string>(
+                        message,
+                        choice.GetTarget()
+                    )
+                );
             }
         }
 

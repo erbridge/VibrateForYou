@@ -13,7 +13,7 @@ public class Statement {
         this._condition = condition;
     }
 
-    public string Get(State state) {
+    public string GetText(State state) {
         if ((this._condition != null) && !this._condition.Execute(state)) {
             return "";
         }

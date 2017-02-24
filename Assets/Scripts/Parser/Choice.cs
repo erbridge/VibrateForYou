@@ -19,12 +19,16 @@ public class Choice {
         this._condition = condition;
     }
 
-    public string Get(State state) {
+    public string GetText(State state) {
         if ((this._condition != null) && !this._condition.Execute(state)) {
             return "";
         }
 
         return this._text;
+    }
+
+    public string GetTarget() {
+        return this._target;
     }
 
     public override string ToString() {
