@@ -1,0 +1,386 @@
+vibrate for you
+
+*startconvo
+
+(if: $hesitate is 1)[
+phew, i was worried i'd lost you. how are you?
+]
+(else:)[
+hey, how are you?
+]
+
+(if: $hesitate is 1)[
+[[haha, a little eager, aren't you?->hesitate response 1]]
+]
+
+[[hey! yeah, i'm good, how are you?->enthusiastic response 1]]
+[[ugh, i'm up super late working on this project. you?->hesitate response 1]]
+[[pretty exhausted, if i'm honest. ->turndown response 1]]
+(if: $hesitate <= 0)[
+(set: $guilty to "")
+]
+
+*enthusiastic response 1
+
+i'm pretty tired, if i'm honest.
+you're up late!
+
+[[you caught me!->anchor 1]]
+(set: $enthusiasm to it +1)
+*hesitate response 1
+
+$guilty you're up kind of late, aren't you?
+
+[[yeah, i guess i don't normally stay up so late->anchor 1]]
+[[i like staying up late. it helps me work.->anchor 1]]
+(set: $hesitate to it +1)
+*turndown response 1
+
+oh geez, yeah, me too
+but it's better to get it done, right?
+
+[[right->anchor 1]]
+(set: $turndown to it + 1)
+*anchor 1
+
+just lookin out for you
+
+[[oh yeah?->anchor 2]]
+[[haha->anchor 2]]
+[[haha, you don't need to->anchor 2]]
+
+*you've matched!
+
+You've matched with Jaimie on Finder! Why don't you start chatting?
+
+[[send message->startconvo]]
+
+
+(set: $counter to 10)
+
+(live: 1s)[
+(set: $counter to it - 1)
+(if: $counter is 0)[
+(go-to: "startconvodelay")
+]
+
+]
+
+
+*startconvodelay
+
+hey
+
+[[hey->startconvo]]
+(set: $hesitate to it + 1)
+(set: $countdown to it +1)
+(if: $hesitate > 0)[
+(set: $guilty to "guilty as charged.")
+]
+
+*anchor 2
+(if: $enthusiasm > 0)[
+
+yeah, definitely
+
+[[what else are you looking out for?->enthusiastic forward]]
+[[why's that?->hesitate forward]]
+]
+
+(else-if: $hesitate > 0)[
+well, if you'll let me
+
+[[i'll let you.->enthusiastic forward 1]]
+[[if i let you?->hesitate forward]]
+]
+
+(else-if: $turndown > 0)[
+haha sorry, i don't mean to say that you need looking after
+
+[[yeah, i don't ->end]]
+[[it's okay->turndown forward]]
+]
+
+(else:)[
+
+...
+
+[[i can let you look after me->enthusiastic delay]]
+[[i mean, why are you up so late?->turndown forward]]
+[[...->hesitate forward]]
+]
+
+*enthusiastic forward
+
+(set: $enthusiasm to it +1)
+a little bit of fun
+
+[[me too->enthusiastic forward 1]]
+[[i think we might have a different idea of fun->hold on]]
+
+*turndown forward
+
+what are you working on?
+*end
+
+okay, sorry, i respect your choices
+
+you turned jaimie down
+
+final score:
+(set: $enthusiasm to it +1)
+i was just thinking about your pictures. you've got a nice smile.
+
+[[smiling isn't the only thing my mouth can do->forward]]
+
+
+(set: $counter to 10)
+(live: 1s)[
+
+(set: $counter to it - 1)
+(if: $counter is 0)[
+(go-to: "check in 1")
+]
+
+]
+
+(set: $return to "")
+*check in 1
+
+(either: "hey, are you still there?","hey just checking in", "are you alright?")
+
+[[hey, yeah, sorry, i'm here]]
+
+(if: $checkin >= 1)[
+(set: $return to "i think you left me wondering,")
+]
+
+*hey, yeah, sorry, i'm here
+
+(if: $enthusiasm > 1)[
+
+just wanted to make sure
+[[what were we talking about?->forward]]
+[[actually, can you hold on a sec?->hold on]]
+]
+
+(if: $hesitate > 2)[
+
+just wanted to make sure. we can stop if you want?
+[[no no, i'm okay->hesitate forward]]
+[[no no, i just don't really know who you are is all->hold on]]
+]
+
+(if: $turndown > 1)[
+
+are you sure?
+[[really, i'm fine->hesitate forward]]
+[[actually, i'm not really feeling it->hold on]]
+]
+
+(else:)[
+
+are you sure?
+
+[[i can let you look after me->enthusiastic delay]]
+[[i mean, why are you up so late?->turndown forward]]
+[[...->hesitate forward]]
+]
+
+(set: $checkin to it +1)
+(set: $hesitate to it +1)
+(set: $countdown to it +1)
+
+*forward
+
+$return what else can your mouth do?
+
+[[uh->hesitate forward]]
+[[...]]
+[[you might be surprised->enthusiastic forward 2]]
+
+
+(set: $counter to 10)
+(live: 1s)[
+
+(set: $counter to it - 1)
+(if: $counter is 0)[
+(go-to: "check in 1")
+]
+
+]
+
+*hold on(set: $enthusiasm to it -1)
+(set: $turndown to it +1)
+i don't mean to be forward
+you're right, it's a bit much
+
+[[tell me something about you->learn]]
+[[yeah, i don't think i'm into this right now->end]]
+
+*hesitate forward
+...
+(set: $counter to 7)
+(live: 1s)[
+
+(set: $counter to it - 1)
+(if: $counter is 0)[
+(go-to: "hesitate forward 1")
+]
+
+]
+
+*learn
+
+it's raining outside. i like it when it rains.
+the sound makes the whole house feel smaller.
+
+[[i meant something about you->learn 2]]
+[[it's so hot outside. i made iced tea earlier.->weather]]
+
+*learn 2
+
+i'm five foot nine. i've got a cat. his name is thomas.
+
+[[you gave your cat a person's name?->learn 3]]
+
+*weather
+
+what kind of tea?
+
+[[green tea. with peppermint.->weather 2]]
+
+*weather 2
+
+that sounds nice.
+do you have any more now?
+
+[[on my bedside table.]]
+
+*hesitate forward 1
+
+[[are you there?->hesitate forward 2]]
+(set: $counter to 10)
+(live: 1s)[
+
+(set: $counter to it - 1)
+(if: $counter is 0)[
+(go-to: "end 1")
+]
+
+]
+
+it's raining outside.
+
+[[it's raining here, too]]
+[[uh]]
+
+*it's raining here, too
+*uh
+(set: $uh to 2)
+*end 1
+
+[[okay, well, nice talking to you]]
+
+
+final count:
+*okay, well, nice talking to you
+
+xx
+would you pin me down
+
+[[knees either side of you->enthusiastic response 2]]
+[[no, i'd let you take the lead->take the lead 1]]
+*enthusiastic forward 2
+
+try me.
+
+[[well, it's more my mouth and my tongue->enthusiastic forward 3]]
+
+
+(set: $counter to 10)
+(live: 1s)[
+
+(set: $counter to it - 1)
+(if: $counter is 0)[
+(go-to: "check in 2")
+]
+
+]
+
+*enthusiastic forward 3
+
+...
+(set: $counter to 3)
+(live: 1s)[
+
+(set: $counter to it - 1)
+(if: $counter is 0)[
+(go-to: "enthusiastic forward 4")
+]
+
+]
+
+*learn 3
+
+well it's a cat's name when he has it.
+
+[[a good point.]]
+
+(set: $counter to 10)
+(live: 1s)[
+
+(set: $counter to it - 1)
+(if: $counter is 0)[
+(go-to: "check in 1")
+]
+
+]
+
+*a good point.
+*on my bedside table.
+
+is that within reach?
+
+[[yeah, it is]]
+*yeah, it is
+
+maybe you should have some.
+(set: $counter to 5)(live: 1s)[
+(set: $counter to it - 1)(if: $counter <= 0)[
+(print:"any good?
+
+[[cold. wet.]]")
+]
+
+]
+
+*cold. wet.
+*enthusiastic forward 4
+
+...
+
+[[at your neck, behind your ears->enthusiastic forward 5]]
+*enthusiastic response 2
+
+and your mouth?
+
+[[at your neck, behind your ears->enthusiastic forward 5]]
+*take the lead 1
+
+i'd be gentle with you
+*enthusiastic delay
+*enthusiastic forward 5
+
+...
+
+[[fingernails raking down your back]]
+[[i mean, if that's what you're into]]
+*check in 2
+
+(either: "yeah?","is this too much?", "do you want to talk about something else?")
+
+[[no, i'm fine, you're just distracting me->take the lead 1]]
+[[actually, can you give me a sec?->hold on]]
+*fingernails raking down your back
+*i mean, if that's what you're into
