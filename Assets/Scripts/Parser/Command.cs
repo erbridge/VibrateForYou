@@ -134,7 +134,7 @@ public class SetCommand : Command {
 
         Regex argumentRegex = new Regex(
             @"\$(?<variable>\w+)\s+to\s+\$?(?<target>\w+)?\s*" +
-            @"((?<modifier>[\+-]?)(?<intValue>\d+))?" +
+            @"((?<modifier>[\+-]?)\s*(?<intValue>\d+))?" +
             "(\"(?<stringValue>.*?)\")?"
         );
 
