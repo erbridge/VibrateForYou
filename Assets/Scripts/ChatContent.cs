@@ -63,7 +63,7 @@ public class ChatContent : ScriptableObject
 
         //Put the new text such that it doesn't collide with any existing text
         GameObject chatPrefab = myGameObj.GetPrefabByOwner(sender);
-        GameObject newChatMess = Instantiate(chatPrefab, myGameObj.transform);//Change this later
+        GameObject newChatMess = Instantiate(chatPrefab, myGameObj.transform) as GameObject;//Change this later
         //Set values new chat
         Vector2 newDelta = newChatMess.GetComponent<RectTransform>().sizeDelta;
         newChatMess.GetComponent<RectTransform>().sizeDelta = new Vector2(newDelta.x, (TextLineHeight * numberOfLines) + 30);

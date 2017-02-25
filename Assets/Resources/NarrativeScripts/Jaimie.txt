@@ -1,13 +1,5 @@
 vibrate for you
 
-*you've matched!
-
-You've matched with Jaimie on Finder! Why don't you start chatting?
-
-[[send message->startconvo]]
-
-(countdown: 10s -> startconvodelay)
-
 *startconvo
 
 (if: $hesitate is 1)[
@@ -37,25 +29,36 @@ you're up late!
 (set: $enthusiasm to it +1)
 *hesitate response 1
 
-$guilty you're up kind of late, aren't you?
+$guilty i guess we're both up kind of late, aren't we?
 
 [[yeah, i guess i don't normally stay up so late->anchor 1]]
 [[i like staying up late. it helps me work.->anchor 1]]
 (set: $hesitate to it +1)
+
 *turndown response 1
 
 oh geez, yeah, me too
-but it's better to get it done, right?
+but it's better to get whatever you're working on done, right?
 
 [[right->anchor 1]]
 (set: $turndown to it + 1)
+
 *anchor 1
 
-just lookin out for you
+i'm just lookin out for you, i guess
 
 [[oh yeah?->anchor 2]]
 [[haha->anchor 2]]
-[[haha, you don't need to->anchor 2]]
+[[uh, you definitely don't need to->anchor 2]]
+
+
+*you've matched!
+
+You've matched with Jaimie on Finder! Why don't you start chatting?
+
+[[hey->startconvo]]
+
+(countdown: 10s -> startconvodelay)
 
 
 *startconvodelay
@@ -63,16 +66,16 @@ just lookin out for you
 hey
 
 [[hey->startconvo]]
-(set: $hesitate to it + 1)
 
+(set: $hesitate to it + 1)
+(set: $countdown to it +1)
 (if: $hesitate > 0)[
 (set: $guilty to "guilty as charged.")
 ]
 
 *anchor 2
 (if: $enthusiasm > 0)[
-
-yeah, definitely
+i mean, not that you need it
 
 [[what else are you looking out for?->enthusiastic forward]]
 [[why's that?->hesitate forward]]
@@ -109,13 +112,17 @@ a little bit of fun
 *turndown forward
 
 what are you working on?
+
+[[just this project i said i'd get done by a crazy deadline->turndown forward 1]]
+
 *end
 
-okay, sorry, i respect your choices
+okay, well, maybe we could talk some other time
 
-you turned jaimie down
 
 final score:
+*enthusiastic forward 1
+
 (set: $enthusiasm to it +1)
 i was just thinking about your pictures. you've got a nice smile.
 
@@ -142,16 +149,12 @@ just wanted to make sure
 [[what were we talking about?->forward]]
 [[actually, can you hold on a sec?->hold on]]
 ]
-
-(if: $hesitate > 2)[
-
+(else-if: $hesitate > 2)[
 just wanted to make sure. we can stop if you want?
 [[no no, i'm okay->hesitate forward]]
 [[no no, i just don't really know who you are is all->hold on]]
 ]
-
-(if: $turndown > 1)[
-
+(else-if: $turndown > 1)[
 are you sure?
 [[really, i'm fine->hesitate forward]]
 [[actually, i'm not really feeling it->hold on]]
@@ -167,6 +170,7 @@ are you sure?
 
 (set: $checkin to it +1)
 (set: $hesitate to it +1)
+(set: $countdown to it +1)
 
 *forward
 
@@ -178,7 +182,9 @@ $return what else can your mouth do?
 
 (countdown: 10s -> check in 1)
 
-*hold on(set: $enthusiasm to it -1)
+*hold on
+
+(set: $enthusiasm to it -1)
 (set: $turndown to it +1)
 i don't mean to be forward
 you're right, it's a bit much
@@ -224,27 +230,32 @@ do you have any more now?
 
 (countdown: 10s -> end 1)
 
+*hesitate forward 2
+
 it's raining outside.
 
-[[it's raining here, too]]
+[[oh, it's raining here, too]]
 [[uh]]
 
-*it's raining here, too
+
 *uh
-(set: $uh to 2)
+
+just an observation
+
+[[i see]]
+
 *end 1
 
-[[okay, well, nice talking to you]]
+[[okay, well, nice talking to you-> end 1a]]
 
 
-final count:
-*okay, well, nice talking to you
+*...
 
-xx
 would you pin me down
 
 [[knees either side of you->enthusiastic response 2]]
 [[no, i'd let you take the lead->take the lead 1]]
+
 *enthusiastic forward 2
 
 try me.
@@ -263,45 +274,372 @@ try me.
 
 well it's a cat's name when he has it.
 
-[[a good point.]]
+[[a good point.->learn 4]]
 
 (countdown: 10s -> check in 1)
 
-*a good point.
+*learn 4
+
+i'd send you a picture, but i don't know where he's gone
+
+[[a different kind of pussy pic]]
+
 *on my bedside table.
 
 is that within reach?
 
 [[yeah, it is]]
+
 *yeah, it is
 
 maybe you should have some.
+any good?
+
+(countdown: 10s -> cold. wet. 1)
+
+*cold. wet.
+
+and you?
+
+[[warm. hot.]]
+[[not feeling this->end 2]]
 
 *enthusiastic forward 4
 
 ...
 
 [[at your neck, behind your ears->enthusiastic forward 5]]
+
 *enthusiastic response 2
 
 and your mouth?
 
 [[at your neck, behind your ears->enthusiastic forward 5]]
+
 *take the lead 1
 
 i'd be gentle with you
+
+[[yeah?->take the lead 2]]
+
 *enthusiastic delay
+
+i guess i was just hoping we could have some fun
+
+[[i'd like that->enthusiastic forward 1]]
+[[actually, i think i'd rather not->end]]
+
 *enthusiastic forward 5
 
 ...
 
-[[fingernails raking down your back]]
-[[i mean, if that's what you're into]]
+[[fingernails raking down your back->yes god!!]]
+[[is that something you're into?->enthusiastic check in 1]]
+
 *check in 2
 
 (either: "yeah?","is this too much?", "do you want to talk about something else?")
 
 [[no, i'm fine, you're just distracting me->take the lead 1]]
 [[actually, can you give me a sec?->hold on]]
-*fingernails raking down your back
-*i mean, if that's what you're into
+
+*yes god!!
+
+yes
+god
+
+[[you're really hot, you know that?->turned on 1]]
+[[if i were with you, would you want me to hurt you?->bdsm 1]]
+[[wait a second->hold on 2]]
+
+*enthusiastic check in 1
+
+it is, it is
+
+[[good->enthusiastic check in 2]]
+
+(set: $checkin to it +1)
+*turned on 1
+
+i can stand to hear it again
+
+[[do you want me to keep talking to you like this->turned on 2]]
+
+*bdsm 1
+
+maybe a little
+yes, a lot actually
+
+[[just pin your hands above your head, would you like that?->bdsm 2]]
+
+*hold on 2
+
+whatever you need
+
+[[you->hold on 2a]]
+[[can we slow down for a second->hold on]]
+
+*take the lead 2
+
+kiss you at the hollow beneath your ear,
+
+[[go on]]
+
+*a different kind of pussy pic
+
+haha
+crass
+
+[[i mean, we're chatting on finder->learn 6]]
+[[were you expecting something a bit more demure?->learn 6]]
+
+(countdown: 10s -> check in 2)
+
+*learn 6
+
+i don't know what i was expecting
+
+[[me neither]]
+[[i mean, i was expecting something... else]]
+
+*enthusiastic check in 2
+
+i wish you were here right now
+
+[[hands at your hips, pulling at your jeans?->yes god!!]]
+[[actually, hold on->hold on 2]]
+
+*warm. hot.
+
+are you in bed?
+
+[[yes]]
+*me neither
+
+well
+anyway
+
+[[yeah->end 3]]
+[[do you want to meet up in person sometime?]]
+*i mean, i was expecting something... else
+
+[[sorry to disappoint->end 3]]
+
+[[rematch!->start convo]]
+*end 3
+
+thanks for the chat
+
+xx
+oh
+
+[[i mean, we don't have to->end 4]]
+[[i just thought it would be nice. i like talking to you]]
+yeah
+no
+i think it would be nice, too
+
+[[what are you doing tomorrow? we could grab a coffee in city centre]]
+*end 4
+
+yeah, i don't know, i was kind of looking for a casual thing
+
+[[oh, that's fine->end 6]]
+*end 1a
+
+i'd really like that
+we could meet at the corner of regent and royal
+
+[[if you don't look like an axe murderer, i'll be there at 3->learn 7]]
+*go on
+
+down your neck to your collarbone, the hollow of your throat
+i'd leave a trail with my tongue
+
+[[yeah]]
+
+*yes
+
+have you thought about touching yourself
+
+[[yes. i mean. i am.]]
+[[no, it's not really been...]]
+*yes. i mean. i am.
+
+are you still warm and hot
+can you imagine my mouth on yours
+
+(countdown: 7s -> yes weather)
+
+*no, it's not really been...
+
+it's okay - i get it
+sorry for pushing
+we don't have to talk anymore
+
+[[yeah, maybe it's best if we don't->end 2]]
+[[i mean, maybe you could just tell me more about... you?->learn 2]]
+
+*bdsm 2
+
+would you pull my hair
+
+[[i'd grab fist fulls of it to keep you still->bdsm 3]]
+
+*turned on 2
+
+i want a lot of things from you
+
+[[tell me->turned on 3]]
+
+*bdsm 3
+
+...
+
+(countdown: 10s -> bdsm 4)
+
+*bdsm 4
+
+tell me i'm good
+
+[[you're so good->turned on 4]]
+
+*learn 7
+
+it's a date.
+
+[[see you then->end 5]]
+
+*end 5
+
+*end 6
+
+but thank you for talking with me
+
+*oh, it's raining here, too
+
+we are, according to finder, like a mile apart
+
+[[did you see the thunder]]
+
+*did you see the thunder
+
+you mean hear
+
+[[that too]]
+
+*that too
+
+from the humidity, i'd guess
+
+[[it was so hot today. i made iced tea->weather]]
+
+*end 2
+
+oh! okay. sorry if i made you feel uncomfortable. we don't have to keep talking
+
+[[yeah, i'm just not really into it->end 2a]]
+
+*end2a
+
+*yes weather
+
+can you imagine my mouth on you
+
+[[i want that]]
+
+*hold on 2a
+
+do you want me
+
+[[i want you to come for me->turned on 3]]
+
+*turned on 3
+
+i want you, i want to hear you come, i want to feel you around me and inside me
+
+[[i want you to come for me->turned on 4]]
+[[woah->hold on]]
+
+*turned on 4
+
+i'm so close
+
+[[yeah?]]
+
+*yeah?
+
+can i come
+
+[[please->please 1]]
+
+*i want that
+
+i know
+
+[[i want this->turned on 2]]
+
+*i see
+
+anyway
+
+[[right.->end 3]]
+
+*cold. wet. 1
+
+any good?
+
+[[cold. wet.]]
+
+*turndown forward 1
+
+are you getting distracted, working so late?
+
+[[you're distracting->enthusiastic delay]]
+[[not really->turndown]]
+
+*turndown
+
+oh
+
+[[yeah. anyway.->end]]
+
+*yeah
+
+i'd want to hear you moan, to make you come in my hands, against me, shuddering
+
+[[yes, yeah yes]]
+[[uh wait a second->hold on 2]]
+
+*yes, yeah yes
+
+do you want that? do you want to come with me
+
+[[please]]
+
+*please
+
+(countdown: 10s -> end 7)
+
+thank you
+
+[[thank you->end 7a]]
+
+*end 7a
+
+*please 1
+
+...
+
+(countdown: 10s -> end 8)
+
+thank you
+(set: $thankyou to "thank you")
+(if: $enthusiasm >= 3)[(set: $thankyou to "thank you for being so direct with me")]
+(if: $hesitate >= 3)[(set: $thankyou to "thank you for taking time to think about this")]
+(if: $turndown >= 2)[(set: $thankyou to "thank you for taking a chance on me")]
+(if: $countdown >= 2)[(set: $thankyou to "thank you for taking your time with me")]
+
+*end 8
+
+$thankyou
