@@ -16,15 +16,15 @@ public class ExpandKeyboard : Selectable
     int Direction = 1;
     IEnumerator KeyboardAnimation = null;
 
-    override public void OnPointerEnter(PointerEventData data)
-    {
-        PointerIsOver = true;
-    }
+    // override public void OnPointerEnter(PointerEventData data)
+    // {
+    //     PointerIsOver = true;
+    // }
 
-    override public void OnPointerExit(PointerEventData data)
-    {
-        PointerIsOver = false;
-    }
+    // override public void OnPointerExit(PointerEventData data)
+    // {
+    //     PointerIsOver = false;
+    // }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
