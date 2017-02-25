@@ -6,10 +6,14 @@ using UnityEngine;
 namespace Parser {
 
 public class Parser {
+    public event Action<string> eventOnNewStatement;
+    public event Action<List<KeyValuePair<string, string> > >
+    eventOnChangeChoices;
+
     private State _state;
     private Dictionary<string, Page> _pages;
 
-    public Parser(string name, string firstPage) {
+    public Parser(string name) {
         this._state = new State();
         this._pages = new Dictionary<string, Page>();
 
@@ -36,18 +40,24 @@ public class Parser {
 
             this._pages.Add(title, new Page(rawScriptSection));
         }
-
-        this.SetPage(firstPage);
     }
 
     public void SetPage(string title) {
-        this._state.SetPage(title);
+        this.RunPageCommands(title);
 
-        this.RunPageCommands();
+        foreach (string statement in this.GetPageStatements(title)) {
+            if (eventOnNewStatement != null) {
+                eventOnNewStatement(statement);
+            }
+        }
+
+        if (eventOnChangeChoices != null) {
+            eventOnChangeChoices(this.GetPageChoices(title));
+        }
     }
 
-    private void RunPageCommands() {
-        Page page = this._pages[this._state.GetPage()];
+    private void RunPageCommands(string title) {
+        Page page = this._pages[title];
 
         List<Command> commands = page.GetCommands();
 
@@ -58,8 +68,8 @@ public class Parser {
         }
     }
 
-    public List<string> GetPageStatements() {
-        Page page = this._pages[this._state.GetPage()];
+    private List<string> GetPageStatements(string title) {
+        Page page = this._pages[title];
 
         List<Statement> statements = page.GetStatements();
 
@@ -76,8 +86,8 @@ public class Parser {
         return output;
     }
 
-    public List<KeyValuePair<string, string> > GetPageChoices() {
-        Page page = this._pages[this._state.GetPage()];
+    private List<KeyValuePair<string, string> > GetPageChoices(string title) {
+        Page page = this._pages[title];
 
         List<Choice> choices = page.GetChoices();
 

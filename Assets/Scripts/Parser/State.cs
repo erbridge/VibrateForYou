@@ -7,8 +7,6 @@ public class State {
     private Dictionary<string, int>    _intVariables;
     private Dictionary<string, string> _stringVariables;
 
-    private string _pageTitle;
-
     public State() {
         this._intVariables    = new Dictionary<string, int>();
         this._stringVariables = new Dictionary<string, string>();
@@ -30,14 +28,6 @@ public class State {
 
     public void Set(string variableName, string val) {
         this._stringVariables[variableName] = val;
-    }
-
-    public string GetPage() {
-        return this._pageTitle;
-    }
-
-    public void SetPage(string title) {
-        this._pageTitle = title;
     }
 
 }
