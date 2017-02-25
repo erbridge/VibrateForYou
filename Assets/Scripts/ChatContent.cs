@@ -31,9 +31,11 @@ public class ChatContent : ScriptableObject
     public float padding = 10;
     public static int LineSizeEstimate = 36;
    // public static float CharWidthEstimate 
-    public static float TextLineHeight = 100f;
+    public static float TextLineHeight = 150f;
     [System.NonSerialized]
     public ChatContentGameObj myGameObj;
+
+    public GameObject currentTypingBar;
     // Use this for initialization
     void Awake()
     {
@@ -92,6 +94,47 @@ public class ChatContent : ScriptableObject
         SFX.PlayAt(sound, Camera.main.transform.position, 0.3f);
         sound = Resources.Load("SFX/Message_Recieve") as AudioClip;
         SFX.PlayAt(sound, Camera.main.transform.position, 1f);
+    }
+
+    public void TypeForSeconds(float time)
+    {
+        if (currentTypingBar != null)
+        {
+            return;
+        }
+        myGameObj.StartCoroutine(Type(time));
+    }
+
+    IEnumerator Type(float time)
+    {
+        StartTyping();
+        yield return new WaitForSeconds(time);
+        EndTyping();
+    }
+
+    public void StartTyping()
+    {
+
+        // currentHeight += TypingBarEstimate;
+        // Vector2 windowDelta = myGameObj.GetComponent<RectTransform>().sizeDelta;
+        // windowDelta.y = currentHeight;
+        // myGameObj.GetComponent<RectTransform>().sizeDelta = windowDelta;
+        currentTypingBar = Instantiate(myGameObj.TypingPrefab, myGameObj.transform) as GameObject;
+        currentTypingBar.transform.localScale = Vector3.one;
+    }
+
+    public void EndTyping()
+    {
+        
+        Destroy(currentTypingBar);
+        currentTypingBar = null;
+        
+        // currentHeight -= TypingBarEstimate;
+        // Vector2 windowDelta = myGameObj.GetComponent<RectTransform>().sizeDelta;
+        // windowDelta.y = currentHeight;
+        // myGameObj.GetComponent<RectTransform>().sizeDelta = windowDelta;
+
+
     }
 
     public void MessagesSeen()

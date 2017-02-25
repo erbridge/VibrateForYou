@@ -132,8 +132,8 @@ public class MessengerStateMachine : MonoBehaviour {
             ChatFillin.inst.PopulateText(currentOptions[selectedOption].Key);
             ChangeState(MessengerStates.WritingText);
             
-            var clickSound = Resources.Load("SFX/Keyboard_Click_0"+UnityEngine.Random.Range(0, 4)) as AudioClip;
-            SFX.PlayAt(clickSound, Camera.main.transform.position, 1f);
+            // var clickSound = Resources.Load("SFX/Keyboard_Click_0"+UnityEngine.Random.Range(0, 4)) as AudioClip;
+            // SFX.PlayAt(clickSound, Camera.main.transform.position, 1f);
         }
     }
     public void SendButtonPressed()

@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"ve",
+				"Vector3()\tVector3()"
+			],
+			[
+				"new",
+				"newChatMess\tGameObject"
+			],
+			[
+				"Ra",
+				"Range(int min, int max)\tint"
+			],
+			[
 				"Rec",
 				"Rect(float x, float y, float width, float height)\tRect(float x, float y, float width, float height)"
 			],
@@ -502,18 +514,6 @@
 			[
 				"Press",
 				"PressStartSoundEvent\tstring"
-			],
-			[
-				"Debug",
-				"DebugDrawCross(Vector3 position, float size, Color color, float duration = 0f)\tvoid"
-			],
-			[
-				"Ma",
-				"Min(int a, int b)\tint"
-			],
-			[
-				"De",
-				"Debug\tDebug"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "Assets/Scripts/ReadBarAnimator.cs",
 			"settings":
 			{
-				"buffer_size": 907,
+				"buffer_size": 904,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Unix"
 			}
@@ -535,6 +535,33 @@
 				"buffer_size": 1363,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/ChatContent.cs",
+			"settings":
+			{
+				"buffer_size": 5729,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/SFX.cs",
+			"settings":
+			{
+				"buffer_size": 2201,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Scripts/MessengerStateMachine.cs",
+			"settings":
+			{
+				"buffer_size": 6419,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -735,6 +762,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"SFX",
 			"Animator",
 			"Input.GetKeyDown(KeyCode.B)",
 			"IEnumerator",
@@ -861,8 +889,7 @@
 			"\t{",
 			"}\n",
 			"1f",
-			"slopeAngleOld",
-			"Velocity.y = 0f;"
+			"slopeAngleOld"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -899,6 +926,7 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -907,15 +935,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 907,
+						"buffer_size": 904,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								826,
-								826
+								785,
+								785
 							]
 						],
 						"settings":
@@ -977,10 +1005,140 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 74.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Assets/Scripts/ChatContent.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5729,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2038,
+								2038
+							]
+						],
+						"settings":
+						{
+							"oops":
+							{
+								"1221,1226": "Parameter 'Input' is never used",
+								"1239,1252": "Parameter 'MessagePrefab' is never used",
+								"1305,1310": "'Input' should start with a lower case letter. (Rule 'Parameters')",
+								"132,139": "'notSent' should start with an upper case letter. (Rule 'Enum Members')",
+								"1872,1882": "Use 'var' keyword",
+								"1941,1942": "Type cast is redundant",
+								"264,271": "Name should have prefix '_'. (Rule 'Fields').",
+								"290,301": "Name should have prefix '_'. (Rule 'Fields').",
+								"330,335": "Name should have prefix '_'. (Rule 'Fields').",
+								"360,369": "'Reference' should start with a lower case letter. (Rule 'Fields')",
+								"396,402": "Name should have prefix '_'. (Rule 'Fields').",
+								"532,536": "Name should have prefix '_'. (Rule 'Fields').",
+								"567,574": "'ChatLog' should start with a lower case letter. (Rule 'Fields')",
+								"650,662": "'OwnerXOffset' should start with a lower case letter. (Rule 'Fields')",
+								"690,704": "'PartnerXOffset' should start with a lower case letter. (Rule 'Fields')",
+								"745,758": "Name should have prefix '_'. (Rule 'Fields').",
+								"782,789": "Name should have prefix '_'. (Rule 'Fields').",
+								"79,84": "Using directive is not used by code and can be removed safely.",
+								"818,834": "'LineSizeEstimate' should start with a lower case letter. (Rule 'Fields')",
+								"910,924": "'TextLineHeight' should start with a lower case letter. (Rule 'Fields')",
+								"990,999": "Name should have prefix '_'. (Rule 'Fields')."
+							},
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 10.0,
+						"translation.y": 647.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Assets/Scripts/SFX.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2201,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								350,
+								350
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Assets/Scripts/MessengerStateMachine.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6419,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4678,
+								4678
+							]
+						],
+						"settings":
+						{
+							"oops":
+							{
+								"101,106": "Using directive is not used by code and can be removed safely.",
+								"2152,2157": "Parameter can be List",
+								"267,277": "'ExitButton' should start with a lower case letter. (Rule 'Fields')",
+								"297,307": "'SendButton' should start with a lower case letter. (Rule 'Fields')",
+								"3121,3131": "Method 'NewMessage' can be made static.",
+								"3775,3787": "Parameter can be IComparable",
+								"433,437": "Initializing field by default value is redundant",
+								"479,487": "Name should have prefix '_'. (Rule 'Fields').",
+								"4872,4891": "Method 'UpdateStateViewMode' has the same with 'EnterStateViewMode'",
+								"4916,4933": "Method 'ExitStateViewMode' has the same with 'UpdateStateViewMode'",
+								"5257,5276": "Method 'UpdateDialogChoices' has the same with 'ExitStateViewMode'",
+								"5937,5939": "Convert to '|=' expresssion",
+								"689,693": "Initializing field by default value is redundant"
+							},
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2434.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
 			]

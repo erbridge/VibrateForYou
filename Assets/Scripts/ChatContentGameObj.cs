@@ -10,7 +10,7 @@ public class ChatContentGameObj : MonoBehaviour {
     //Chat prefab must have TextMessage.cs on it
     public GameObject ChatPrefab;
     public GameObject NPCChatPrefab;
-    public GameObject StatusUpdatePrefab;
+    public GameObject TypingPrefab;
     // Use this for initialization
     void Start () {
         Owner =  new ChatContent();
