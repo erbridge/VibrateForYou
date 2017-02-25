@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using UnityEngine;
 
 namespace Parser {
 
@@ -7,12 +8,20 @@ public class Statement {
 
     private ConditionalCommand _condition;
 
-    public Statement(string text, ConditionalCommand condition = null) {
+    private bool _isEither;
+
+    public Statement(
+        string             text,
+        ConditionalCommand condition = null,
+        bool               isEither = false
+    ) {
         this._text = text;
 
         // If this is non-null, we expect this command to be true before
         // adding this statement.
         this._condition = condition;
+
+        this._isEither = isEither;
     }
 
     public string GetText(State state) {
@@ -21,6 +30,12 @@ public class Statement {
         }
 
         string text = this._text;
+
+        if (this._isEither) {
+            string[] options = text.Split('#');
+
+            text = options[Random.Range(0, options.Length - 1)].Trim();
+        }
 
         Regex variableRegex = new Regex(@"\$(?<variableName>\w+)");
 

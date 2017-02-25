@@ -81,10 +81,27 @@ public class Page {
 
                         break;
                     }
+                    case ("either"): {
+                        List<string> options = new List<string>();
+
+                        foreach (string option in args.Split(',')) {
+                            options.Add(option.Trim().Trim('"'));
+                        }
+
+                        this._statements.Add(
+                            new Statement(
+                                String.Join("#", options.ToArray()),
+                                condition,
+                                true
+                            )
+                        );
+
+                        break;
+                    }
                     default: {
                         break;
                     }
-                }
+                } // switch
 
                 continue;
             }

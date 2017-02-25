@@ -30,7 +30,7 @@ public class MessengerStateMachine : MonoBehaviour {
     IEnumerator WaitForFixed()
     {
         yield return new WaitForFixedUpdate();
-        FindObjectOfType<Parser.Parser>().Init("Jaimie", "you've matched!");
+        FindObjectOfType<Parser.Parser>().Init("Main", "you've matched!");
     }
 
     void ChangeState(MessengerStates state)
