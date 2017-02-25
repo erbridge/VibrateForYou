@@ -31,7 +31,7 @@ public class ChatContent : ScriptableObject
     public float padding = 10;
     public static int LineSizeEstimate = 36;
    // public static float CharWidthEstimate 
-    public static float TextLineHeight = 15f;
+    public static float TextLineHeight = 100f;
     [System.NonSerialized]
     public ChatContentGameObj myGameObj;
     // Use this for initialization
@@ -39,6 +39,9 @@ public class ChatContent : ScriptableObject
     {
         inst = this;
         ChatLog = new List<SentMessage>();
+        FindObjectOfType<Parser.Parser>().eventOnReceived += MessagesSent;
+        FindObjectOfType<Parser.Parser>().eventOnRead += MessagesSeen;
+        FindObjectOfType<Parser.Parser>().eventOnTyping += TypeForSeconds;
        // myGameObj.Prnt("Chat content is awake");
     }
 
@@ -64,6 +67,7 @@ public class ChatContent : ScriptableObject
         //Put the new text such that it doesn't collide with any existing text
         GameObject chatPrefab = myGameObj.GetPrefabByOwner(sender);
         GameObject newChatMess = Instantiate(chatPrefab, myGameObj.transform) as GameObject;//Change this later
+        newChatMess.transform.localScale = new Vector3(1,1,1);
         //Set values new chat
         Vector2 newDelta = newChatMess.GetComponent<RectTransform>().sizeDelta;
         newChatMess.GetComponent<RectTransform>().sizeDelta = new Vector2(newDelta.x, (TextLineHeight * numberOfLines) + 30);
@@ -73,7 +77,7 @@ public class ChatContent : ScriptableObject
         currentHeight += (TextLineHeight * numberOfLines) + 40;
         Vector2 windowDelta = myGameObj.GetComponent<RectTransform>().sizeDelta;
         windowDelta.y = currentHeight;
-        myGameObj.GetComponent<RectTransform>().sizeDelta = windowDelta;
+        //myGameObj.GetComponent<RectTransform>().sizeDelta = windowDelta;
         //Add to the list
         SentMessage newListPart;
         newListPart.message = Input;

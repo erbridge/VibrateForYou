@@ -34,6 +34,8 @@ public class ExpandKeyboard : Selectable
     {
         if (Expand)
         {
+            Keyboard.GetComponent<Animator>().SetTrigger("BringUpKeyboard");
+        /*
             Direction = 1;
             if (!isAnimating)
             {
@@ -41,10 +43,12 @@ public class ExpandKeyboard : Selectable
                 KeyboardAnimation = ChangeChatWindow();
                 timer = 0;
                 StartCoroutine(KeyboardAnimation);
-            }
+            }*/
         }
         else
         {
+            Keyboard.GetComponent<Animator>().SetTrigger("CollapseKeyboard");
+        /*
             Direction = -1;
             if (!isAnimating)
             {
@@ -52,7 +56,7 @@ public class ExpandKeyboard : Selectable
                 KeyboardAnimation = ChangeChatWindow();
                 timer = AnimationTime;
                 StartCoroutine(KeyboardAnimation);
-            }
+            }*/
         }
     }
 

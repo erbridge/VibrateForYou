@@ -24,12 +24,12 @@ public class PopulateOptions : MonoBehaviour {
         {
             TextFields[i].GetComponent<Text>().text = text[i].Key;
             Options[i].GetComponent<Button>().interactable = true;
-            Options[i].GetComponent<LayoutElement>().ignoreLayout = false;
+            // Options[i].GetComponent<LayoutElement>().ignoreLayout = false;
         }
         for (; i < Options.Length; ++i)
         {
             Options[i].GetComponent<Button>().interactable = false;
-            Options[i].GetComponent<LayoutElement>().ignoreLayout = true;
+            // Options[i].GetComponent<LayoutElement>().ignoreLayout = true;
         }
 
     }

@@ -32,7 +32,7 @@ public class ReadBarAnimator : MonoBehaviour
     	{
     		float s = TweenCurve.Evaluate(t/ElapsedTime);
             var r = myRect.sizeDelta;
-            r.x = Mathf.Lerp(0f, widthTo, s);
+            r.x = Mathf.Lerp(0f, 916f, s);
             myRect.sizeDelta = r;
             yield return null;
             t += Time.deltaTime;

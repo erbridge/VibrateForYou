@@ -22,6 +22,7 @@ public class MessengerStateMachine : MonoBehaviour {
     // Use this for initialization
     void Start() {
         instance = this;
+        OnExit = ExitStateViewMode;
         FindObjectOfType<Parser.Parser>().eventOnNewStatement += NewMessage;
         FindObjectOfType<Parser.Parser>().eventOnChangeChoices += SetOptions;
         StartCoroutine(WaitForFixed());
@@ -151,7 +152,7 @@ public class MessengerStateMachine : MonoBehaviour {
     //View Mode States
     void EnterStateViewMode()
     {
-       
+       FindObjectOfType<ExpandKeyboard>().OnMoveKeyboard(false);
     }
     void UpdateStateViewMode()
     {
@@ -159,12 +160,12 @@ public class MessengerStateMachine : MonoBehaviour {
     }
     void ExitStateViewMode()
     {
-      
+      FindObjectOfType<ExpandKeyboard>().OnMoveKeyboard(true);
     }
     //DialogChoices
     void EnterDialogChoices()
     {
-        FindObjectOfType<ExpandKeyboard>().OnMoveKeyboard(true);
+        
         ExitButton.interactable = true;
         //Ask for dialog choices
         //Populate dialog choices
@@ -176,7 +177,7 @@ public class MessengerStateMachine : MonoBehaviour {
     }
     void ExitDialogChoices()
     {
-        FindObjectOfType<ExpandKeyboard>().OnMoveKeyboard(false);
+        
         ExitButton.interactable = false;
         //Clear dialog choices
     }
