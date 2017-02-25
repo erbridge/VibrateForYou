@@ -47,25 +47,27 @@ public class Parser : MonoBehaviour {
             this._pages.Add(title, new Page(rawScriptSection));
         }
 
-        this.SetPage(startingTitle);
+        this.SetPage(startingTitle, true);
     }
 
-    public void SetPage(string title) {
+    public void SetPage(string title, bool skipTyping = false) {
         this.StopAllCoroutines();
-        this.StartCoroutine(UpdateListeners(title));
+        this.StartCoroutine(UpdateListeners(title, skipTyping));
     }
 
-    private IEnumerator UpdateListeners(string title) {
+    private IEnumerator UpdateListeners(string title, bool skipTyping) {
         List<CountdownCommand> countdownCommands = this.RunPageCommands(title);
 
         foreach (string statement in this.GetPageStatements(title)) {
-            float duration = statement.Length * 0.2f + 0.5f;
+            if (!skipTyping) {
+              float duration = statement.Length * 0.2f + 0.5f;
 
-            if (eventOnTyping != null) {
-                eventOnTyping(duration);
+              if (eventOnTyping != null) {
+                  eventOnTyping(duration);
+              }
+
+              yield return new WaitForSeconds(duration);
             }
-
-            yield return new WaitForSeconds(duration);
 
             if (eventOnNewStatement != null) {
                 eventOnNewStatement(statement);
