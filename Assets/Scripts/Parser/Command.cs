@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using System.Text.RegularExpressions;
 using System;
@@ -64,17 +65,25 @@ public class Command {
 }
 
 public class ConditionalCommand : Command {
+    private List<ConditionalCommand> _anticonditions;
 
     public ConditionalCommand(
-        string             verb,
-        string             arguments,
-        ConditionalCommand condition = null,
-        ConditionalCommand anticondition = null
-    ) : base(verb, arguments, condition, anticondition) { }
+        string                   verb,
+        string                   arguments,
+        List<ConditionalCommand> anticonditions
+    ) : base(verb, arguments) {
+        this._anticonditions = new List<ConditionalCommand>(anticonditions);
+    }
 
     public override bool Execute(State state) {
         if (!base.Execute(state)) {
             return false;
+        }
+
+        foreach (ConditionalCommand anticondition in this._anticonditions) {
+            if (anticondition.Execute(state)) {
+                return false;
+            }
         }
 
         if (this._verb == "else") {

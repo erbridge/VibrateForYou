@@ -25,8 +25,9 @@ public class Page {
         );
         Regex selfChoiceRegex = new Regex(@"\[\[(?<target>.+)\]\]");
 
-        ConditionalCommand condition     = null;
-        ConditionalCommand lastCondition = null;
+        ConditionalCommand condition = null;
+
+        List<ConditionalCommand> conditions = new List<ConditionalCommand>();
 
         foreach (string rawLine in rawScript.Split('\n')) {
             string line = rawLine.Trim();
@@ -41,25 +42,55 @@ public class Page {
                 string verb = match.Groups["verb"].Value;
                 string args = match.Groups["args"].Value;
 
-                if ((verb == "if") || (verb == "else-if") || (verb == "else")) {
-                    condition = new ConditionalCommand(
-                        verb,
-                        args,
-                        condition,
-                        lastCondition
-                    );
-                } else if (verb == "set") {
-                    this._commands.Add(new SetCommand(args, condition));
-                } else if (verb == "countdown") {
-                    this._commands.Add(new CountdownCommand(args, condition));
+                switch (verb) {
+                    case ("if"):
+                    case ("else-if"):
+                    case ("else"): {
+                        condition = new ConditionalCommand(
+                            verb,
+                            args,
+                            conditions
+                        );
+
+                        conditions.Add(condition);
+
+                        break;
+                    }
+                    default: {
+                        if (condition == null) {
+                            conditions.Clear();
+                        }
+
+                        break;
+                    }
+                }
+
+                switch (verb) {
+                    case ("set"): {
+                        this._commands.Add(new SetCommand(args, condition));
+
+                        break;
+                    }
+                    case ("countdown"): {
+                        this._commands.Add(
+                            new CountdownCommand(
+                                args,
+                                condition
+                            )
+                        );
+
+                        break;
+                    }
+                    default: {
+                        break;
+                    }
                 }
 
                 continue;
             }
 
             if ((condition != null) && (line == "]")) {
-                lastCondition = condition;
-                condition     = null;
+                condition = null;
 
                 continue;
             }
