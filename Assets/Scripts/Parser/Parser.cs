@@ -16,7 +16,7 @@ public class Parser : MonoBehaviour {
     private Dictionary<string, Page> _pages;
 
     void Start() {
-        this.Init("Jaimie", "you've matched!");
+        // this.Init("Jaimie", "you've matched!");
     }
 
     public void Init(string name, string startingTitle) {
@@ -26,7 +26,7 @@ public class Parser : MonoBehaviour {
         string rawScript = Resources.Load(
             "NarrativeScripts/" +
             name
-        ).ToString();
+        ).ToString().Replace("\r", "");
 
         Regex groupTitleRegex = new Regex(@"(^|\n)\*(.+)\n");
 
