@@ -59,8 +59,12 @@ public class Parser : MonoBehaviour {
             }
         }
 
+        List<KeyValuePair<string, string> > choices = this.GetPageChoices(
+            title
+        );
+
         if (eventOnChangeChoices != null) {
-            eventOnChangeChoices(this.GetPageChoices(title));
+            eventOnChangeChoices(choices);
         }
     }
 
@@ -91,6 +95,8 @@ public class Parser : MonoBehaviour {
 
             if (message.Length > 0) {
                 output.Add(message);
+
+                Debug.Log(message);
             }
         }
 
@@ -115,6 +121,8 @@ public class Parser : MonoBehaviour {
                         choice.GetTarget()
                     )
                 );
+
+                Debug.Log(message + " -> " + choice.GetTarget());
             }
         }
 

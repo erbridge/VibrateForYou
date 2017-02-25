@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace Parser {
 
 public class Statement {
@@ -18,7 +20,18 @@ public class Statement {
             return "";
         }
 
-        return this._text;
+        string text = this._text;
+
+        Regex variableRegex = new Regex(@"\$(?<variableName>\w+)");
+
+        foreach (Match match in variableRegex.Matches(text)) {
+            string variableName = match.Groups["variableName"].Value;
+            string variable     = state.GetString(variableName);
+
+            text = text.Replace(match.Value, variable);
+        }
+
+        return text;
     }
 
     public override string ToString() {
