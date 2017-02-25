@@ -56,7 +56,7 @@ i'm just lookin out for you, i guess
 
 You've matched with Jaimie on Finder! Why don't you start chatting?
 
-[[send message->startconvo]]
+[[hey->startconvo]]
 
 (countdown: 10s -> startconvodelay)
 
