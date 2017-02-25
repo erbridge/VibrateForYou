@@ -18,21 +18,20 @@ public class Page {
         this._choices    = new List<Choice>();
 
         Regex commandRegex = new Regex(
-            @"\((?<verb>\w+?):(?<args>[^\)]*?)\)"
+            @"\((?<verb>[\w-]+?):(?<args>[^\)]*?)\)"
         );
         Regex otherChoiceRegex = new Regex(
             @"\[\[(?<text>.+?)->(?<target>.+?)\]\]"
         );
         Regex selfChoiceRegex = new Regex(@"\[\[(?<target>.+)\]\]");
 
-        ConditionalCommand condition = null;
+        ConditionalCommand condition     = null;
+        ConditionalCommand lastCondition = null;
 
         foreach (string rawLine in rawScript.Split('\n')) {
             string line = rawLine.Trim();
 
             if (line.Length == 0) {
-                condition = null;
-
                 continue;
             }
 
@@ -46,8 +45,8 @@ public class Page {
                     condition = new ConditionalCommand(
                         verb,
                         args,
-                        null,
-                        condition
+                        condition,
+                        lastCondition
                     );
                 } else if (verb == "set") {
                     this._commands.Add(new SetCommand(args, condition));
@@ -59,6 +58,9 @@ public class Page {
             }
 
             if ((condition != null) && (line == "]")) {
+                lastCondition = condition;
+                condition     = null;
+
                 continue;
             }
 
