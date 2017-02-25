@@ -124,8 +124,10 @@ public class Parser : MonoBehaviour {
                 yield return new WaitForSeconds(duration);
             }
 
-            if (this.eventOnNewStatement != null) {
-                this.eventOnNewStatement(statement);
+            if (statement != "...") {
+                if (this.eventOnNewStatement != null) {
+                  this.eventOnNewStatement(statement);
+                }
             }
 
             Debug.Log(statement);
