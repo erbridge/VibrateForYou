@@ -9,6 +9,8 @@ namespace Parser {
 public class Parser : MonoBehaviour {
     public event Action<float>  eventOnTyping;
     public event Action<string> eventOnNewStatement;
+    public event Action eventOnReceived;
+    public event Action eventOnRead;
     public event Action<List<KeyValuePair<string, string> > >
     eventOnChangeChoices;
 
@@ -50,27 +52,70 @@ public class Parser : MonoBehaviour {
         this.SetPage(startingTitle, true);
     }
 
-    public void SetPage(string title, bool skipTyping = false) {
+    public void SetPage(string title, bool skipDelays = false) {
+        // FIXME: This needs to be more specific than stopping all coroutines.
         this.StopAllCoroutines();
-        this.StartCoroutine(UpdateListeners(title, skipTyping));
+        this.StartCoroutine(UpdateListeners(title, skipDelays));
     }
 
-    private IEnumerator UpdateListeners(string title, bool skipTyping) {
+    private IEnumerator UpdateListeners(string title, bool skipDelays) {
+        if (!skipDelays) {
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 5f));
+        }
+
+        if (this.eventOnReceived != null) {
+            this.eventOnReceived();
+        }
+
+        if (!skipDelays) {
+            yield return new WaitForSeconds(
+                2f + UnityEngine.Random.Range(0.8f, 1.5f) *
+                UnityEngine.Random.Range(1f, 4f)
+            );
+        }
+
+        if (this.eventOnRead != null) {
+            this.eventOnRead();
+        }
+
+        if (!skipDelays) {
+            yield return new WaitForSeconds(
+                0.5f + UnityEngine.Random.Range(0.8f, 1.5f) *
+                UnityEngine.Random.Range(2f, 4f)
+            );
+        }
+
         List<CountdownCommand> countdownCommands = this.RunPageCommands(title);
 
         foreach (string statement in this.GetPageStatements(title)) {
-            if (!skipTyping) {
-              float duration = statement.Length * 0.2f + 0.5f;
+            if (!skipDelays) {
+                float duration = statement.Length * 0.2f;
 
-              if (eventOnTyping != null) {
-                  eventOnTyping(duration);
-              }
+                if (UnityEngine.Random.value < 0.25f) {
+                    do {
+                        float hesitaitonDuration = duration *
+                        UnityEngine.Random.Range(
+                            0.1f,
+                            2f
+                        );
 
-              yield return new WaitForSeconds(duration);
+                        if (this.eventOnTyping != null) {
+                            this.eventOnTyping(hesitaitonDuration);
+                        }
+
+                        yield return new WaitForSeconds(hesitaitonDuration);
+                    } while (UnityEngine.Random.value < 0.1f);
+                }
+
+                if (this.eventOnTyping != null) {
+                    this.eventOnTyping(duration);
+                }
+
+                yield return new WaitForSeconds(duration);
             }
 
-            if (eventOnNewStatement != null) {
-                eventOnNewStatement(statement);
+            if (this.eventOnNewStatement != null) {
+                this.eventOnNewStatement(statement);
             }
 
             Debug.Log(statement);
@@ -82,8 +127,8 @@ public class Parser : MonoBehaviour {
             title
         );
 
-        if (eventOnChangeChoices != null) {
-            eventOnChangeChoices(choices);
+        if (this.eventOnChangeChoices != null) {
+            this.eventOnChangeChoices(choices);
         }
 
         foreach (CountdownCommand command in countdownCommands) {
