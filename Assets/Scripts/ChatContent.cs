@@ -83,6 +83,11 @@ public class ChatContent : ScriptableObject
         newListPart.sender = sender;
         //Resize Chatlog to account for new stuff
         ChatLog.Add(newListPart);
+
+        var sound = Resources.Load("SFX/Vibrate") as AudioClip;
+        SFX.PlayAt(sound, Camera.main.transform.position, 0.3f);
+        sound = Resources.Load("SFX/Message_Recieve") as AudioClip;
+        SFX.PlayAt(sound, Camera.main.transform.position, 1f);
     }
 
     public void MessagesSeen()

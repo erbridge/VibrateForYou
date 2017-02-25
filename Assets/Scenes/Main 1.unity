@@ -1925,7 +1925,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1192991970}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -2688,7 +2688,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 120842093}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4678,6 +4678,7 @@ GameObject:
   - component: {fileID: 2114871016}
   - component: {fileID: 2114871017}
   - component: {fileID: 2114871018}
+  - component: {fileID: 2114871019}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4798,3 +4799,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec45f7c3cd8c6428f8ad6fe1c64ded87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2114871019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2114871010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52a207dbf5c34c15aea3587ac2204b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OneShotAudioPrefab: {fileID: 82089598443728890, guid: 0022457d09bf84d1b89a781c8f966df0,
+    type: 2}

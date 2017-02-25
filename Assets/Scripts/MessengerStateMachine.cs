@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -131,6 +131,8 @@ public class MessengerStateMachine : MonoBehaviour {
             ChatFillin.inst.PopulateText(currentOptions[selectedOption].Key);
             ChangeState(MessengerStates.WritingText);
             
+            var clickSound = Resources.Load("SFX/Keyboard_Click_0"+UnityEngine.Random.Range(0, 4)) as AudioClip;
+            SFX.PlayAt(clickSound, Camera.main.transform.position, 1f);
         }
     }
     public void SendButtonPressed()
@@ -141,6 +143,9 @@ public class MessengerStateMachine : MonoBehaviour {
             FindObjectOfType<Parser.Parser>().SetPage(currentOptions[selectedOption].Value);
             //Send Message
             ChangeState(MessengerStates.ViewMode);
+
+            var sound = Resources.Load("SFX/Message_Send") as AudioClip;
+            SFX.PlayAt(sound, Camera.main.transform.position, 1f);
         }
     }
     //View Mode States
