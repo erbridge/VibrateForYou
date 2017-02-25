@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using System.Text.RegularExpressions;
 using System;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine;
 namespace Parser {
 
 public class Parser : MonoBehaviour {
+    public event Action<float>  eventOnTyping;
     public event Action<string> eventOnNewStatement;
     public event Action<List<KeyValuePair<string, string> > >
     eventOnChangeChoices;
@@ -50,14 +52,29 @@ public class Parser : MonoBehaviour {
 
     public void SetPage(string title) {
         this.StopAllCoroutines();
+        this.StartCoroutine(UpdateListeners(title));
+    }
 
-        this.RunPageCommands(title);
+    private IEnumerator UpdateListeners(string title) {
+        List<CountdownCommand> countdownCommands = this.RunPageCommands(title);
 
         foreach (string statement in this.GetPageStatements(title)) {
+            float duration = statement.Length * 0.2f + 0.5f;
+
+            if (eventOnTyping != null) {
+                eventOnTyping(duration);
+            }
+
+            yield return new WaitForSeconds(duration);
+
             if (eventOnNewStatement != null) {
                 eventOnNewStatement(statement);
             }
+
+            Debug.Log(statement);
         }
+
+        yield return new WaitForSeconds(1);
 
         List<KeyValuePair<string, string> > choices = this.GetPageChoices(
             title
@@ -66,21 +83,32 @@ public class Parser : MonoBehaviour {
         if (eventOnChangeChoices != null) {
             eventOnChangeChoices(choices);
         }
-    }
 
-    private void RunPageCommands(string title) {
+        foreach (CountdownCommand command in countdownCommands) {
+            this.RunCountdownCommand(command);
+
+            Debug.Log("Ran " + command);
+        }
+
+        yield return null;
+    }   // UpdateListeners
+
+    private List<CountdownCommand> RunPageCommands(string title) {
         Page page = this._pages[title];
 
         List<Command> commands = page.GetCommands();
 
+        List<CountdownCommand> output = new List<CountdownCommand>();
+
         foreach (Command command in commands) {
             if (command as CountdownCommand != null) {
-                this.RunCountdownCommand(command as CountdownCommand);
-                Debug.Log("Ran " + command);
+                output.Add(command as CountdownCommand);
             } else if (command.Execute(this._state)) {
                 Debug.Log("Ran " + command);
             }
         }
+
+        return output;
     }
 
     private List<string> GetPageStatements(string title) {
@@ -95,8 +123,6 @@ public class Parser : MonoBehaviour {
 
             if (message.Length > 0) {
                 output.Add(message);
-
-                Debug.Log(message);
             }
         }
 
