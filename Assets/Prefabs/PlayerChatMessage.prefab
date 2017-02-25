@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 224757113714266354}
   - component: {fileID: 222402986716209108}
   - component: {fileID: 114739537086270590}
-  - component: {fileID: 95894462114679518}
   m_Layer: 5
   m_Name: ReadBar
   m_TagString: Untagged
@@ -145,6 +144,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224569181160911398}
+  - component: {fileID: 222346034876905588}
   m_Layer: 5
   m_Name: GameObject
   m_TagString: Untagged
@@ -152,23 +152,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &95894462114679518
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1117663026857274}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 78cf0a00540074cfdaaffbf3c90f03bc, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95916990020509670
 Animator:
   serializedVersion: 3
@@ -489,6 +472,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1080218314787694}
+--- !u!222 &222346034876905588
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1830019765403854}
 --- !u!222 &222402986716209108
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -602,18 +591,18 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1117663026857274}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.38751873, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224569181160911398}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0.000035703182, y: -3.8999996}
-  m_SizeDelta: {x: 266.18994, y: 5}
-  m_Pivot: {x: 0.00000013411045, y: 1.0000004}
+  m_AnchoredPosition: {x: -8, y: -7.6}
+  m_SizeDelta: {x: 0, y: 4.7}
+  m_Pivot: {x: 1, y: 0.50000036}
 --- !u!224 &224775121516318322
 RectTransform:
   m_ObjectHideFlags: 1

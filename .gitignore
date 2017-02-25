@@ -7,3 +7,7 @@
 
 *.meta
 !*.*.meta
+Assets/Editor/OpenFileInBrowser.cs
+Assets/Editor/OpenFileInBrowser.cs.meta
+Assets/Editor/SublimeUnity.cs
+Assets/Editor/SublimeUnity.cs.meta

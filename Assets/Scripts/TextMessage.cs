@@ -44,7 +44,7 @@ public class TextMessage : MonoBehaviour {
 
     void StartRecievedAnimation()
     {
-        ReadBar.GetComponent<Animator>().SetTrigger("Read");
+        StartCoroutine(ReadBar.GetComponent<ReadBarAnimator>().ReadAnimation());
     }
 
     public void UpdateText(string newText)
