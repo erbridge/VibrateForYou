@@ -85,14 +85,14 @@ public class Page {
                         List<string> options = new List<string>();
 
                         foreach (string option in args.Split(',')) {
-                          options.Add(option.Trim().Trim('"'));
+                            options.Add(option.Trim().Trim('"'));
                         }
 
                         this._statements.Add(
-                          new Statement(
-                            String.Join("#", options.ToArray()),
-                            condition,
-                            true
+                            new Statement(
+                                String.Join("#", options.ToArray()),
+                                condition,
+                                true
                             )
                         );
 
@@ -101,7 +101,7 @@ public class Page {
                     default: {
                         break;
                     }
-                }
+                } // switch
 
                 continue;
             }
