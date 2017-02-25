@@ -1,5 +1,13 @@
 vibrate for you
 
+*you've matched!
+
+You've matched with Jaimie on Finder! Why don't you start chatting?
+
+[[send message->startconvo]]
+
+(countdown: 10s -> startconvodelay)
+
 *startconvo
 
 (if: $hesitate is 1)[
@@ -49,23 +57,6 @@ just lookin out for you
 [[haha->anchor 2]]
 [[haha, you don't need to->anchor 2]]
 
-*you've matched!
-
-You've matched with Jaimie on Finder! Why don't you start chatting?
-
-[[send message->startconvo]]
-
-
-(set: $counter to 10)
-
-(live: 1s)[
-(set: $counter to it - 1)
-(if: $counter is 0)[
-(go-to: "startconvodelay")
-]
-
-]
-
 
 *startconvodelay
 
@@ -73,7 +64,7 @@ hey
 
 [[hey->startconvo]]
 (set: $hesitate to it + 1)
-(set: $countdown to it +1)
+
 (if: $hesitate > 0)[
 (set: $guilty to "guilty as charged.")
 ]
@@ -86,21 +77,18 @@ yeah, definitely
 [[what else are you looking out for?->enthusiastic forward]]
 [[why's that?->hesitate forward]]
 ]
-
 (else-if: $hesitate > 0)[
 well, if you'll let me
 
 [[i'll let you.->enthusiastic forward 1]]
 [[if i let you?->hesitate forward]]
 ]
-
 (else-if: $turndown > 0)[
 haha sorry, i don't mean to say that you need looking after
 
 [[yeah, i don't ->end]]
 [[it's okay->turndown forward]]
 ]
-
 (else:)[
 
 ...
@@ -133,16 +121,7 @@ i was just thinking about your pictures. you've got a nice smile.
 
 [[smiling isn't the only thing my mouth can do->forward]]
 
-
-(set: $counter to 10)
-(live: 1s)[
-
-(set: $counter to it - 1)
-(if: $counter is 0)[
-(go-to: "check in 1")
-]
-
-]
+(countdown: 10s -> check in 1)
 
 (set: $return to "")
 *check in 1
@@ -177,7 +156,6 @@ are you sure?
 [[really, i'm fine->hesitate forward]]
 [[actually, i'm not really feeling it->hold on]]
 ]
-
 (else:)[
 
 are you sure?
@@ -189,7 +167,6 @@ are you sure?
 
 (set: $checkin to it +1)
 (set: $hesitate to it +1)
-(set: $countdown to it +1)
 
 *forward
 
@@ -199,16 +176,7 @@ $return what else can your mouth do?
 [[...]]
 [[you might be surprised->enthusiastic forward 2]]
 
-
-(set: $counter to 10)
-(live: 1s)[
-
-(set: $counter to it - 1)
-(if: $counter is 0)[
-(go-to: "check in 1")
-]
-
-]
+(countdown: 10s -> check in 1)
 
 *hold on(set: $enthusiasm to it -1)
 (set: $turndown to it +1)
@@ -220,15 +188,8 @@ you're right, it's a bit much
 
 *hesitate forward
 ...
-(set: $counter to 7)
-(live: 1s)[
 
-(set: $counter to it - 1)
-(if: $counter is 0)[
-(go-to: "hesitate forward 1")
-]
-
-]
+(countdown: 7s -> hesitate forward 1)
 
 *learn
 
@@ -260,15 +221,8 @@ do you have any more now?
 *hesitate forward 1
 
 [[are you there?->hesitate forward 2]]
-(set: $counter to 10)
-(live: 1s)[
 
-(set: $counter to it - 1)
-(if: $counter is 0)[
-(go-to: "end 1")
-]
-
-]
+(countdown: 10s -> end 1)
 
 it's raining outside.
 
@@ -297,29 +251,13 @@ try me.
 
 [[well, it's more my mouth and my tongue->enthusiastic forward 3]]
 
-
-(set: $counter to 10)
-(live: 1s)[
-
-(set: $counter to it - 1)
-(if: $counter is 0)[
-(go-to: "check in 2")
-]
-
-]
+(countdown: 10s -> check in 2)
 
 *enthusiastic forward 3
 
 ...
-(set: $counter to 3)
-(live: 1s)[
 
-(set: $counter to it - 1)
-(if: $counter is 0)[
-(go-to: "enthusiastic forward 4")
-]
-
-]
+(countdown: 3s -> enthusiastic forward 4)
 
 *learn 3
 
@@ -327,15 +265,7 @@ well it's a cat's name when he has it.
 
 [[a good point.]]
 
-(set: $counter to 10)
-(live: 1s)[
-
-(set: $counter to it - 1)
-(if: $counter is 0)[
-(go-to: "check in 1")
-]
-
-]
+(countdown: 10s -> check in 1)
 
 *a good point.
 *on my bedside table.
@@ -346,16 +276,7 @@ is that within reach?
 *yeah, it is
 
 maybe you should have some.
-(set: $counter to 5)(live: 1s)[
-(set: $counter to it - 1)(if: $counter <= 0)[
-(print:"any good?
 
-[[cold. wet.]]")
-]
-
-]
-
-*cold. wet.
 *enthusiastic forward 4
 
 ...

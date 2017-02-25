@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Parser {
 
-public class Parser {
+public class Parser : MonoBehaviour {
     public event Action<string> eventOnNewStatement;
     public event Action<List<KeyValuePair<string, string> > >
     eventOnChangeChoices;
@@ -13,7 +13,11 @@ public class Parser {
     private State _state;
     private Dictionary<string, Page> _pages;
 
-    public Parser(string name) {
+    void Start() {
+        this.Init("Jaimie", "you've matched!");
+    }
+
+    public void Init(string name, string startingTitle) {
         this._state = new State();
         this._pages = new Dictionary<string, Page>();
 
@@ -40,9 +44,13 @@ public class Parser {
 
             this._pages.Add(title, new Page(rawScriptSection));
         }
+
+        this.SetPage(startingTitle);
     }
 
     public void SetPage(string title) {
+        this.StopAllCoroutines();
+
         this.RunPageCommands(title);
 
         foreach (string statement in this.GetPageStatements(title)) {
@@ -62,7 +70,10 @@ public class Parser {
         List<Command> commands = page.GetCommands();
 
         foreach (Command command in commands) {
-            if (command.Execute(this._state)) {
+            if (command as CountdownCommand != null) {
+                this.RunCountdownCommand(command as CountdownCommand);
+                Debug.Log("Ran " + command);
+            } else if (command.Execute(this._state)) {
                 Debug.Log("Ran " + command);
             }
         }
@@ -108,6 +119,10 @@ public class Parser {
         }
 
         return output;
+    }
+
+    private void RunCountdownCommand(CountdownCommand command) {
+        this.StartCoroutine(command.Execute(this._state, this));
     }
 
 }

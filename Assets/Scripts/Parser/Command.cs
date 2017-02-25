@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Text.RegularExpressions;
 using System;
 using UnityEngine;
@@ -187,6 +188,40 @@ public class SetCommand : Command {
 
         return false;
     }   // Execute
+
+}
+
+public class CountdownCommand : Command {
+
+    public CountdownCommand(
+        string             arguments,
+        ConditionalCommand condition = null,
+        ConditionalCommand anticondition = null
+    ) : base("countdown", arguments, condition, anticondition) { }
+
+    public IEnumerator Execute(State state, Parser parser) {
+        if (!base.Execute(state)) {
+            yield return null;
+        }
+
+        Regex argumentRegex = new Regex(
+            @"(?<duration>\d+)s\s*->\s*(?<target>.+)"
+        );
+
+        Match match = argumentRegex.Match(this._arguments);
+
+        if (match.Success) {
+            int duration = Int32.Parse(match.Groups["duration"].Value);
+
+            yield return new WaitForSeconds(duration);
+
+            string target = match.Groups["target"].Value;
+
+            parser.SetPage(target);
+        }
+
+        yield return null;
+    }
 
 }
 

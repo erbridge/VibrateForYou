@@ -42,7 +42,7 @@ public class Page {
                 string verb = match.Groups["verb"].Value;
                 string args = match.Groups["args"].Value;
 
-                if ((verb == "if") || (verb == "elseif") || (verb == "else")) {
+                if ((verb == "if") || (verb == "else-if") || (verb == "else")) {
                     condition = new ConditionalCommand(
                         verb,
                         args,
@@ -51,6 +51,8 @@ public class Page {
                     );
                 } else if (verb == "set") {
                     this._commands.Add(new SetCommand(args, condition));
+                } else if (verb == "countdown") {
+                    this._commands.Add(new CountdownCommand(args, condition));
                 }
 
                 continue;
