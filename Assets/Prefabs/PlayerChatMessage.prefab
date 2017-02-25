@@ -240,12 +240,8 @@ MonoBehaviour:
   myText: {fileID: 114537432561283666}
   TextBackground: {fileID: 114809808264692856}
   state: 0
-  ColorStates:
-  - {r: 0.7398897, g: 0.7398897, b: 0.875, a: 1}
-  - {r: 0.5606618, g: 0.5606618, b: 0.89705884, a: 1}
-  - {r: 0.30455235, g: 0.30455235, b: 0.9632353, a: 1}
-  OutlineImage: {fileID: 0}
-  AnimationTime: 0.5
+  ReadBar: {fileID: 114739537086270590}
+  SentCircle: {fileID: 114502713743575248}
 --- !u!114 &114375808098922914
 MonoBehaviour:
   m_ObjectHideFlags: 1
