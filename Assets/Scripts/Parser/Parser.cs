@@ -18,7 +18,7 @@ public class Parser : MonoBehaviour {
     private Dictionary<string, Page> _pages;
 
     void Start() {
-        // this.Init("Jaimie", "you've matched!");
+        // this.Init("Main", "you've matched!");
     }
 
     public void Init(string name, string startingTitle) {
@@ -59,18 +59,31 @@ public class Parser : MonoBehaviour {
     }
 
     private IEnumerator UpdateListeners(string title, bool skipDelays) {
+        List<CountdownCommand> countdownCommands = this.RunPageCommands(title);
+
+        int delayScale = this._state.GetInt("scaledelay");
+
+        this._state.Set("scaledelay", 2);
+
         if (!skipDelays) {
-            yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 5f));
+            yield return new WaitForSeconds(
+                UnityEngine.Random.Range(
+                    0.5f,
+                    1.5f
+                )
+            );
         }
 
         if (this.eventOnReceived != null) {
             this.eventOnReceived();
         }
 
-        if (!skipDelays) {
+        if ((delayScale > 0) && !skipDelays) {
             yield return new WaitForSeconds(
-                2f + UnityEngine.Random.Range(0.8f, 1.5f) *
-                UnityEngine.Random.Range(1f, 4f)
+                1f + delayScale * (
+                    UnityEngine.Random.Range(0.4f, 1f) *
+                    UnityEngine.Random.Range(0f, 1.5f)
+                )
             );
         }
 
@@ -78,26 +91,23 @@ public class Parser : MonoBehaviour {
             this.eventOnRead();
         }
 
-        if (!skipDelays) {
+        if ((delayScale > 0) && !skipDelays) {
             yield return new WaitForSeconds(
-                0.5f + UnityEngine.Random.Range(0.8f, 1.5f) *
-                UnityEngine.Random.Range(2f, 4f)
+                1f + delayScale * (
+                    UnityEngine.Random.Range(0.8f, 1.5f) *
+                    UnityEngine.Random.Range(0f, 3f)
+                )
             );
         }
 
-        List<CountdownCommand> countdownCommands = this.RunPageCommands(title);
-
         foreach (string statement in this.GetPageStatements(title)) {
             if (!skipDelays) {
-                float duration = statement.Length * 0.2f;
+                float duration = statement.Length * 0.1f;
 
-                if (UnityEngine.Random.value < 0.25f) {
+                if ((delayScale > 0) && (UnityEngine.Random.value < 0.2f)) {
                     do {
-                        float hesitaitonDuration = duration *
-                        UnityEngine.Random.Range(
-                            0.1f,
-                            2f
-                        );
+                        float hesitaitonDuration = delayScale * duration *
+                        UnityEngine.Random.Range(0.1f, 2f);
 
                         if (this.eventOnTyping != null) {
                             this.eventOnTyping(hesitaitonDuration);
