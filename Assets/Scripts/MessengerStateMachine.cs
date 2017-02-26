@@ -148,7 +148,6 @@ public class MessengerStateMachine : MonoBehaviour {
             currentOptions = null;
             //Send Message
             ChangeState(MessengerStates.DialogChoices);
-
             var sound = Resources.Load("SFX/Message_Send") as AudioClip;
             SFX.PlayAt(sound, Camera.main.transform.position, 1f);
         }
