@@ -111,6 +111,7 @@ public class MessengerStateMachine : MonoBehaviour {
     {
         if(currentState == MessengerStates.ViewMode)
         {
+           
             ChangeState(MessengerStates.DialogChoices);
         }
     }
@@ -144,8 +145,9 @@ public class MessengerStateMachine : MonoBehaviour {
         {
             ChatContent.inst.SpawnMessage(currentOptions[selectedOption].Key, MessageSender.Player);
             FindObjectOfType<Parser.Parser>().SetPage(currentOptions[selectedOption].Value);
+            currentOptions = null;
             //Send Message
-            ChangeState(MessengerStates.ViewMode);
+            ChangeState(MessengerStates.DialogChoices);
 
             var sound = Resources.Load("SFX/Message_Send") as AudioClip;
             SFX.PlayAt(sound, Camera.main.transform.position, 1f);
