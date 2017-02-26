@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public enum MessengerStates { ViewMode, DialogChoices, WritingText, BackSpace};
+public enum MessengerStates { ViewMode, DialogChoices, WritingText, BackSpace, TitleScreen};
 public class MessengerStateMachine : MonoBehaviour {
     public Button ExitButton;
     public Button SendButton;
@@ -76,7 +76,7 @@ public class MessengerStateMachine : MonoBehaviour {
 
     public void NewPage(KeyValuePair<string, string>[] options)
     {
-       /* if (currentState == MessengerStates.WritingText)
+        if (currentState == MessengerStates.WritingText)
         {
             bool foundMatch = false;
             for(int i = 0; i < options.Length && i < currentOptions.Length; ++i)
@@ -94,7 +94,7 @@ public class MessengerStateMachine : MonoBehaviour {
                 ChangeState(MessengerStates.DialogChoices);
                 return;
             }
-        }*/
+        }
         if (currentState == MessengerStates.DialogChoices)
         {
             FindObjectOfType<PopulateOptions>().Populate(options);
@@ -120,7 +120,7 @@ public class MessengerStateMachine : MonoBehaviour {
         print("Exit button click");
         if(currentState == MessengerStates.WritingText)
         {
-            ChangeState(MessengerStates.DialogChoices);
+            ChangeState(MessengerStates.ViewMode);
         }
         else if(currentState == MessengerStates.DialogChoices)
         {
@@ -129,7 +129,7 @@ public class MessengerStateMachine : MonoBehaviour {
     }
     public void OptionPressed(int optionNumber)
     {
-        if(currentState == MessengerStates.DialogChoices)
+        if(currentState == MessengerStates.DialogChoices || currentState == MessengerStates.WritingText)
         {
             selectedOption = optionNumber;
             ChatFillin.inst.PopulateText(currentOptions[selectedOption].Key);
