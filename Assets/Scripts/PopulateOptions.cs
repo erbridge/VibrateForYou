@@ -13,7 +13,6 @@ public class PopulateOptions : MonoBehaviour {
 	}
 	public void Populate(KeyValuePair<string,string>[] text)
     {
-        print("Popluating");
         int i;
       /*print(text.Length);
         for(i = 0; i < text.Length; ++i)

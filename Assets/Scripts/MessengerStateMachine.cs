@@ -6,6 +6,7 @@ using System;
 
 public enum MessengerStates { ViewMode, DialogChoices, WritingText, BackSpace, TitleScreen};
 public class MessengerStateMachine : MonoBehaviour {
+    public GameObject TitleScreen;
     public Button ExitButton;
     public Button SendButton;
     public delegate void StateFunction();
@@ -13,8 +14,10 @@ public class MessengerStateMachine : MonoBehaviour {
     StateFunction OnUpdate;
     StateFunction OnExit = null;
     public static MessengerStateMachine instance;
-    MessengerStates currentState = MessengerStates.ViewMode;
-    MessengerStates previousState = MessengerStates.ViewMode;
+    MessengerStates currentState = MessengerStates.TitleScreen;
+    MessengerStates previousState = MessengerStates.TitleScreen;
+    float FadeTime = 0.25f;
+
 
     int selectedOption;
     KeyValuePair<string, string>[] currentOptions = null;
@@ -22,16 +25,10 @@ public class MessengerStateMachine : MonoBehaviour {
     // Use this for initialization
     void Start() {
         instance = this;
-        OnExit = ExitStateViewMode;
+        OnExit = ExitTitleScreen;
+       // ChangeState(MessengerStates.TitleScreen);
         FindObjectOfType<Parser.Parser>().eventOnNewStatement += NewMessage;
         FindObjectOfType<Parser.Parser>().eventOnChangeChoices += SetOptions;
-        StartCoroutine(WaitForFixed());
-    }
-
-    IEnumerator WaitForFixed()
-    {
-        yield return new WaitForFixedUpdate();
-        FindObjectOfType<Parser.Parser>().Init("Main", "you've matched!");
     }
 
     void ChangeState(MessengerStates state)
@@ -64,6 +61,11 @@ public class MessengerStateMachine : MonoBehaviour {
                 OnUpdate = UpdateWritingText;
                 OnExit = ExitWritingText;
                 break;
+            case (MessengerStates.TitleScreen):
+                OnEnter = EnterTitleScreen;
+                OnUpdate = UpdateTitleScreen;
+                OnExit = ExitTitleScreen;
+                break;
         }
         OnEnter();
         currentState = state;
@@ -73,7 +75,6 @@ public class MessengerStateMachine : MonoBehaviour {
     {
         NewPage(input.ToArray());
     }
-
     public void NewPage(KeyValuePair<string, string>[] options)
     {
         if (currentState == MessengerStates.WritingText)
@@ -101,12 +102,49 @@ public class MessengerStateMachine : MonoBehaviour {
         }
         currentOptions = options;
     }
-
     public void NewMessage(string input)
     {
         ChatContent.inst.SpawnMessage(input, MessageSender.NPC);
     }
     //Interface functions
+    public void TitleScreenClicked()
+    {
+        StartCoroutine(TitleScreenFadeOut());
+    }
+
+    IEnumerator TitleScreenFadeOut()
+    {
+        float timer = 0;
+        CanvasGroup group = TitleScreen.GetComponent<CanvasGroup>();
+        TitleScreen.GetComponent<Button>().interactable = false;
+        while (timer < FadeTime)
+        {
+            timer += Time.deltaTime;
+            group.alpha = 1 - (timer / FadeTime);
+            yield return null;
+        }
+        ChangeState(MessengerStates.ViewMode);
+    }
+    IEnumerator TitleScreenFadeIn()
+    {
+        TitleScreen.SetActive(true);
+        float timer = 0;
+        CanvasGroup group = TitleScreen.GetComponent<CanvasGroup>();
+        while (timer < FadeTime)
+        {
+            yield return null;
+            timer += Time.deltaTime;
+            group.alpha = timer / FadeTime;
+        }
+
+        ChangeState(MessengerStates.TitleScreen);
+    }
+
+    public void ResetButtonClicked()
+    {
+        print("Reset Clicked");
+        StartCoroutine(TitleScreenFadeIn());
+    }
     public void ChatBarClicked()
     {
         if(currentState == MessengerStates.ViewMode)
@@ -155,7 +193,11 @@ public class MessengerStateMachine : MonoBehaviour {
     //View Mode States
     void EnterStateViewMode()
     {
-       FindObjectOfType<ExpandKeyboard>().OnMoveKeyboard(false);
+        print(FindObjectOfType<ExpandKeyboard>().isUp); ;
+        if(FindObjectOfType<ExpandKeyboard>().isUp)
+        {
+            FindObjectOfType<ExpandKeyboard>().OnMoveKeyboard(false);
+        }
     }
     void UpdateStateViewMode()
     {
@@ -163,7 +205,10 @@ public class MessengerStateMachine : MonoBehaviour {
     }
     void ExitStateViewMode()
     {
-      FindObjectOfType<ExpandKeyboard>().OnMoveKeyboard(true);
+        if (!FindObjectOfType<ExpandKeyboard>().isUp)
+        {
+            FindObjectOfType<ExpandKeyboard>().OnMoveKeyboard(true);
+        }
     }
     //DialogChoices
     void EnterDialogChoices()
@@ -212,7 +257,21 @@ public class MessengerStateMachine : MonoBehaviour {
         SendButton.interactable = false;
         ChatFillin.inst.ResetText();
     }
+    //Title Screen
+    void EnterTitleScreen()
+    {
+        ChatContent.inst.ResetChatLog();
+        TitleScreen.GetComponent<Button>().interactable = true;
+    }
+    void UpdateTitleScreen()
+    {
 
+    }
+    void ExitTitleScreen()
+    {
+        FindObjectOfType<Parser.Parser>().Init("Main", "you've matched!");
+        TitleScreen.SetActive(false);
+    }
 	// Update is called once per frame
 	void Update () {
         if(OnUpdate != null)

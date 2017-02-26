@@ -26,7 +26,6 @@ public class ReadBarAnimator : MonoBehaviour
     	float t = 0f;
         var myRect = GetComponent<RectTransform>();
         float widthTo = TextTransform.rect.width + myRect.anchoredPosition.x;
-        Debug.Log(widthTo);
 
     	while (t < ElapsedTime)
     	{

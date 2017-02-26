@@ -130,7 +130,7 @@ public class Parser : MonoBehaviour {
                 }
             }
 
-            Debug.Log(statement);
+           // Debug.Log(statement);
         }
 
         yield return new WaitForSeconds(1);
@@ -146,7 +146,7 @@ public class Parser : MonoBehaviour {
         foreach (CountdownCommand command in countdownCommands) {
             this.RunCountdownCommand(command);
 
-            Debug.Log("Ran " + command);
+            //Debug.Log("Ran " + command);
         }
 
         yield return null;
@@ -163,7 +163,7 @@ public class Parser : MonoBehaviour {
             if (command as CountdownCommand != null) {
                 output.Add(command as CountdownCommand);
             } else if (command.Execute(this._state)) {
-                Debug.Log("Ran " + command);
+                //Debug.Log("Ran " + command);
             }
         }
 
@@ -207,7 +207,7 @@ public class Parser : MonoBehaviour {
                     )
                 );
 
-                Debug.Log(message + " -> " + choice.GetTarget());
+               // Debug.Log(message + " -> " + choice.GetTarget());
             }
         }
 

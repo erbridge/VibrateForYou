@@ -10,6 +10,7 @@ public class ExpandKeyboard : Selectable
     bool PointerIsOver = false;
     bool Clicked = false;
     bool isAnimating = false;
+    public bool isUp = false;
     float MaxKeyboardSize = 200;
     float timer = 0;
     float AnimationTime = 0.25f;
@@ -26,14 +27,18 @@ public class ExpandKeyboard : Selectable
     //     PointerIsOver = false;
     // }
 
+
     public override void OnPointerDown(PointerEventData eventData)
     {
         MessengerStateMachine.instance.ChatBarClicked();
     }
     public void OnMoveKeyboard(bool Expand)
     {
+        isUp = Expand;
+        //print("Keyboard moved up: " + isUp);
         if (Expand)
         {
+            
             Keyboard.GetComponent<Animator>().SetTrigger("BringUpKeyboard");
         /*
             Direction = 1;

@@ -47,6 +47,15 @@ public class ChatContent : ScriptableObject
        // myGameObj.Prnt("Chat content is awake");
     }
 
+    public void ResetChatLog()
+    {
+        foreach(SentMessage m in ChatLog)
+        {
+            Destroy(m.Reference.gameObject);
+        }
+        ChatLog.Clear();
+    }
+
     public void SpawnTempMessage(string Input, GameObject MessagePrefab)
     {
 
