@@ -36,6 +36,7 @@ public class MessengerStateMachine : MonoBehaviour {
 
     void ChangeState(MessengerStates state)
     {
+        print("Change state: " + state);
         if(state == currentState)
         {
             return;
@@ -115,6 +116,7 @@ public class MessengerStateMachine : MonoBehaviour {
     }
     public void ExitChatButtonClicked()
     {
+        print("Exit button click");
         if(currentState == MessengerStates.WritingText)
         {
             ChangeState(MessengerStates.DialogChoices);
