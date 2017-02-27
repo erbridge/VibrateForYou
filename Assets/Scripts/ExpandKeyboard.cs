@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class ExpandKeyboard : Selectable
 {
+    public RectTransform Viewport;
     public Image Keyboard;
     bool PointerIsOver = false;
     bool Clicked = false;
@@ -27,6 +28,10 @@ public class ExpandKeyboard : Selectable
     //     PointerIsOver = false;
     // }
 
+    void setViewPortHeight(float height)
+    {
+        Viewport.offsetMin = new Vector2(Viewport.offsetMin.x, height);
+    }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
@@ -40,6 +45,7 @@ public class ExpandKeyboard : Selectable
         {
             
             Keyboard.GetComponent<Animator>().SetTrigger("BringUpKeyboard");
+            setViewPortHeight(900);
         /*
             Direction = 1;
             if (!isAnimating)
@@ -53,6 +59,7 @@ public class ExpandKeyboard : Selectable
         else
         {
             Keyboard.GetComponent<Animator>().SetTrigger("CollapseKeyboard");
+            setViewPortHeight(0);
         /*
             Direction = -1;
             if (!isAnimating)

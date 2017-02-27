@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class StickyScrollBar : MonoBehaviour {
     bool ScrollBarStuck = true;
     float LastContentSize = 0;
+    float LastNormalizedPos = 0;
     ScrollRect rect;
 	// Use this for initialization
 	void Start () {
@@ -18,7 +19,8 @@ public class StickyScrollBar : MonoBehaviour {
     {
         if(LastContentSize == rect.content.rect.height)
         {
-            ScrollBarStuck = rect.verticalScrollbar.value <= 0;
+            ScrollBarStuck = rect.verticalNormalizedPosition <= 0;
+            LastNormalizedPos = rect.verticalNormalizedPosition;
         }
         else
         {
@@ -27,13 +29,12 @@ public class StickyScrollBar : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-        if(ScrollBarStuck)
-        {
+	void Update ()
+    { 
             rect.verticalNormalizedPosition = 0;
-            rect.verticalScrollbar.value = 0;
-        }
-		
-	}
+        //    rect.verticalScrollbar.value = 0;
+        
+      
+    }
     
 }

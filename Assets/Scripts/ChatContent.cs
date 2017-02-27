@@ -31,7 +31,7 @@ public class ChatContent : ScriptableObject
     public float padding = 10;
     public static int LineSizeEstimate = 36;
    // public static float CharWidthEstimate 
-    public static float TextLineHeight = 150f;
+    public static float TextLineHeight = 45f;
     [System.NonSerialized]
     public ChatContentGameObj myGameObj;
 
@@ -81,7 +81,7 @@ public class ChatContent : ScriptableObject
         newChatMess.transform.localScale = new Vector3(1,1,1);
         //Set values new chat
         Vector2 newDelta = newChatMess.GetComponent<RectTransform>().sizeDelta;
-        newChatMess.GetComponent<RectTransform>().sizeDelta = new Vector2(newDelta.x, (TextLineHeight * numberOfLines) + 30);
+        newChatMess.GetComponent<RectTransform>().sizeDelta = new Vector2(newDelta.x, (TextLineHeight * (numberOfLines - 1)) + 185);
         //Assume that the prefab has this component
         newChatMess.GetComponent<TextMessage>().UpdateText(Input);
         //Make the content window taller (If needed)
@@ -103,6 +103,8 @@ public class ChatContent : ScriptableObject
         SFX.PlayAt(sound, Camera.main.transform.position, 0.3f);
         sound = Resources.Load("SFX/Message_Recieve") as AudioClip;
         SFX.PlayAt(sound, Camera.main.transform.position, 1f);
+
+     //   myGameObj.Spacer.transform.SetAsLastSibling();
     }
 
     public void TypeForSeconds(float time)
@@ -130,6 +132,7 @@ public class ChatContent : ScriptableObject
         // myGameObj.GetComponent<RectTransform>().sizeDelta = windowDelta;
         currentTypingBar = Instantiate(myGameObj.TypingPrefab, myGameObj.transform) as GameObject;
         currentTypingBar.transform.localScale = Vector3.one;
+   //     myGameObj.Spacer.transform.SetAsLastSibling();
     }
 
     public void EndTyping()

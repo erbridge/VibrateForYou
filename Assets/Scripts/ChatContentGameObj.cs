@@ -11,6 +11,7 @@ public class ChatContentGameObj : MonoBehaviour {
     public GameObject ChatPrefab;
     public GameObject NPCChatPrefab;
     public GameObject TypingPrefab;
+  //  public GameObject Spacer;
     // Use this for initialization
     void Start () {
         Owner =  new ChatContent();
@@ -34,7 +35,8 @@ public class ChatContentGameObj : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		if(Input.GetKeyDown(KeyCode.A))//Test Code
+        /*
+        if (Input.GetKeyDown(KeyCode.A))//Test Code
         {
             Owner.SpawnMessage("This is a test message hopefully this goes on for two lines and I can see if that part works! e if that part works!e if that part works!", MessageSender.Player);
         }
@@ -53,7 +55,7 @@ public class ChatContentGameObj : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.X))//Test Code
         {
             Owner.MessagesSeen();
-        }
+        }*/
     }
 
     public void Prnt(string input)
