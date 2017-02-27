@@ -338,7 +338,6 @@ is that within reach?
 *yeah, it is
 
 maybe you should have some.
-any good?
 
 (countdown: 10s -> cold. wet. 1)
 
@@ -542,6 +541,10 @@ have you thought about touching yourself
 are you still warm and hot
 can you imagine my mouth on yours
 
+[[can you imagine my hands on you->yes weather 2]]
+[[can you imagine my hands on your body->yes weather 2]]
+[[can you imagine my mouth wet with you->yes weather 2]]
+
 (countdown: 7s -> yes weather)
 
 *no, it's not really been...
@@ -622,7 +625,17 @@ oh! okay. sorry if i made you feel uncomfortable. we don't have to keep talking
 
 can you imagine my mouth on you
 
+[[can you imagine my hands on you->i want that]]
+[[can you imagine my hands on your body->i want that]]
+[[can you imagine my mouth wet with you->i want that]]
 [[i want that]]
+
+*yes weather 2
+
+can you imagine my mouth on you
+
+[[i want that]]
+
 *hold on 2a
 
 do you want me
