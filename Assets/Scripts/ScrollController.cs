@@ -18,7 +18,15 @@ public class ScrollController : MonoBehaviour {
                 0.5f
             );
 
+            Canvas.ForceUpdateCanvases();
+
             this._rect.verticalNormalizedPosition = newPosition;
+
+            float delta = newPosition - this._targetPosition.Value;
+
+            if (Mathf.Abs(delta) < 1e-3f) {
+                this._targetPosition = null;
+            }
         }
     }
 
@@ -26,8 +34,17 @@ public class ScrollController : MonoBehaviour {
         this._targetPosition = 0;
     }
 
-    public void StopScrolling(float position) {
-        if (this._rect.verticalNormalizedPosition != position) {
+    public void StopScrolling(float newPosition) {
+        float currentPosition = Mathf.Max(
+            this._rect.verticalNormalizedPosition,
+            0
+        );
+
+        float delta = newPosition - currentPosition;
+
+        // delta is non-zero if the current position of the scrollbar doesn't
+        // match the position of the ScrollRect.
+        if (Mathf.Abs(delta) > 1e-3f) {
             this._targetPosition = null;
         }
     }

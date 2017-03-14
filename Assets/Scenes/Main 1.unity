@@ -278,12 +278,12 @@ Prefab:
     - target: {fileID: 224397035060455084, guid: f5ecf960e1ec44ea88ed16ae66ad0274,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 5.000141
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 224397035060455084, guid: f5ecf960e1ec44ea88ed16ae66ad0274,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -399.99997
+      value: -9.999982
       objectReference: {fileID: 0}
     - target: {fileID: 224397035060455084, guid: f5ecf960e1ec44ea88ed16ae66ad0274,
         type: 2}
@@ -318,7 +318,7 @@ Prefab:
     - target: {fileID: 224397035060455084, guid: f5ecf960e1ec44ea88ed16ae66ad0274,
         type: 2}
       propertyPath: m_Pivot.x
-      value: 0.00000013411045
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224397035060455084, guid: f5ecf960e1ec44ea88ed16ae66ad0274,
         type: 2}
@@ -931,7 +931,6 @@ GameObject:
   - component: {fileID: 657919249}
   - component: {fileID: 657919251}
   - component: {fileID: 657919250}
-  - component: {fileID: 657919252}
   m_Layer: 5
   m_Name: TypingMessageWindow
   m_TagString: Untagged
@@ -993,46 +992,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 657919248}
---- !u!114 &657919252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 657919248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71bdc09c74c45244a9e664e9ed963358, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 657919250}
-  Viewport: {fileID: 0}
-  Scrollbar: {fileID: 0}
-  Keyboard: {fileID: 1617374585}
-  isUp: 1
 --- !u!1 &702041994 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1220747147964212, guid: aeef64d29bd904823b2c6d2dcc09a228,
@@ -1656,6 +1615,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1014994516}
   Viewport: {fileID: 1853853817}
   Scrollbar: {fileID: 1479125200}
+  ScrollRect: {fileID: 1733984372}
   Keyboard: {fileID: 1617374585}
   isUp: 1
 --- !u!1 &1070105671
@@ -3226,6 +3186,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1617374582}
+--- !u!114 &1636608544 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114715123350485128, guid: f5ecf960e1ec44ea88ed16ae66ad0274,
+    type: 2}
+  m_PrefabInternal: {fileID: 221718994}
+  m_Script: {fileID: 11500000, guid: 4fbef456aa5084c9fb4525ce31b9bbbe, type: 3}
 --- !u!1 &1644372785
 GameObject:
   m_ObjectHideFlags: 0
@@ -4439,8 +4405,8 @@ MonoBehaviour:
   ChatPrefab: {fileID: 1361667689693762, guid: cb44931c204bf44fa8b3d34f242a950b, type: 2}
   NPCChatPrefab: {fileID: 1425362730211030, guid: 4ca9aa82979cb4996b869d1b3756951f,
     type: 2}
-  TypingPrefab: {fileID: 1856356403433242, guid: f5ecf960e1ec44ea88ed16ae66ad0274,
-    type: 2}
+  TypingBar: {fileID: 1636608544}
+  ScrollRect: {fileID: 1733984372}
   ScrollController: {fileID: 1733984373}
 --- !u!114 &2072322074
 MonoBehaviour:

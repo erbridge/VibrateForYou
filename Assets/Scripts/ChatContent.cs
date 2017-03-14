@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public enum MessageProgress {notSent, Sent, Seen};
 public enum MessageSender {Player, NPC};
 
@@ -32,14 +31,10 @@ public class ChatContent : ScriptableObject
     public static int LineSizeEstimate = 36;
    // public static float CharWidthEstimate
     public static float TextLineHeight = 45f;
+
     [System.NonSerialized]
     public ChatContentGameObj myGameObj;
 
-    [System.NonSerialized]
-    public ScrollController scrollController;
-
-    public GameObject currentTypingBar;
-    // Use this for initialization
     void Awake()
     {
         inst = this;
@@ -102,7 +97,9 @@ public class ChatContent : ScriptableObject
         //Resize Chatlog to account for new stuff
         ChatLog.Add(newListPart);
 
-        scrollController.ScrollToBottom();
+        myGameObj.TypingBar.transform.SetAsLastSibling();
+
+        myGameObj.ScrollController.ScrollToBottom();
 
         if (sender == MessageSender.NPC) {
           AudioManager.PlayOneShot("Message_Recieve");
@@ -112,10 +109,10 @@ public class ChatContent : ScriptableObject
 
     public void TypeForSeconds(float time)
     {
-        if (currentTypingBar != null)
-        {
+        if (myGameObj.TypingBar.IsVisible()) {
             return;
         }
+
         myGameObj.StartCoroutine(Type(time));
     }
 
@@ -128,28 +125,20 @@ public class ChatContent : ScriptableObject
 
     public void StartTyping()
     {
+        myGameObj.TypingBar.SetVisible(true);
 
-        // currentHeight += TypingBarEstimate;
-        // Vector2 windowDelta = myGameObj.GetComponent<RectTransform>().sizeDelta;
-        // windowDelta.y = currentHeight;
-        // myGameObj.GetComponent<RectTransform>().sizeDelta = windowDelta;
-        currentTypingBar = Instantiate(myGameObj.TypingPrefab, myGameObj.transform) as GameObject;
-        currentTypingBar.transform.localScale = Vector3.one;
-   //     myGameObj.Spacer.transform.SetAsLastSibling();
+        float cachedPosition = myGameObj.ScrollRect.verticalNormalizedPosition;
+
+        myGameObj.TypingBar.transform.SetAsLastSibling();
+
+        Canvas.ForceUpdateCanvases();
+
+        myGameObj.ScrollRect.verticalNormalizedPosition = cachedPosition;
     }
 
     public void EndTyping()
     {
-
-        Destroy(currentTypingBar);
-        currentTypingBar = null;
-
-        // currentHeight -= TypingBarEstimate;
-        // Vector2 windowDelta = myGameObj.GetComponent<RectTransform>().sizeDelta;
-        // windowDelta.y = currentHeight;
-        // myGameObj.GetComponent<RectTransform>().sizeDelta = windowDelta;
-
-
+        myGameObj.TypingBar.SetVisible(false);
     }
 
     public void MessagesSeen()

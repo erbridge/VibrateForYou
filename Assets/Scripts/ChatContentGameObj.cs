@@ -12,13 +12,13 @@ public class ChatContentGameObj : MonoBehaviour {
     // Chat prefab must have TextMessage.cs on it
     public GameObject ChatPrefab;
     public GameObject NPCChatPrefab;
-    public GameObject TypingPrefab;
+    public TypingBar TypingBar;
+    public ScrollRect ScrollRect;
     public ScrollController ScrollController;
 
     void Start() {
         Owner = ScriptableObject.CreateInstance<ChatContent>();
         Owner.myGameObj = this;
-        Owner.scrollController = ScrollController;
     }
 
     public GameObject GetPrefabByOwner(MessageSender sender) {

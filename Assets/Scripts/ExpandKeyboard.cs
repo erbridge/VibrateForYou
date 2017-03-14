@@ -8,6 +8,7 @@ public class ExpandKeyboard : Selectable
 {
     public RectTransform Viewport;
     public RectTransform Scrollbar;
+    public ScrollRect ScrollRect;
     public Image Keyboard;
     bool PointerIsOver = false;
     bool Clicked = false;
@@ -31,8 +32,14 @@ public class ExpandKeyboard : Selectable
 
     void setViewPortHeight(float height)
     {
+        float cachedPosition = ScrollRect.verticalNormalizedPosition;
+
         Viewport.offsetMin = new Vector2(Viewport.offsetMin.x, height);
         Scrollbar.offsetMin = new Vector2(Scrollbar.offsetMin.x, height);
+
+        Canvas.ForceUpdateCanvases();
+
+        ScrollRect.verticalNormalizedPosition = cachedPosition;
     }
 
     public override void OnPointerDown(PointerEventData eventData)
