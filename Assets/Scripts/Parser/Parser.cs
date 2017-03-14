@@ -113,7 +113,9 @@ public class Parser : MonoBehaviour {
                             this.eventOnTyping(hesitaitonDuration);
                         }
 
-                        yield return new WaitForSeconds(hesitaitonDuration);
+                        yield return new WaitForSeconds(
+                          hesitaitonDuration + 0.5f
+                        );
                     } while (UnityEngine.Random.value < 0.1f);
                 }
 
