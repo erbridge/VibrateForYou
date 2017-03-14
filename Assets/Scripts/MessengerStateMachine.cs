@@ -21,7 +21,7 @@ public class MessengerStateMachine : MonoBehaviour {
 
     int selectedOption;
     KeyValuePair<string, string>[] currentOptions = null;
-   
+
     // Use this for initialization
     void Start() {
         instance = this;
@@ -149,7 +149,7 @@ public class MessengerStateMachine : MonoBehaviour {
     {
         if(currentState == MessengerStates.ViewMode)
         {
-           
+
             ChangeState(MessengerStates.DialogChoices);
         }
     }
@@ -172,9 +172,8 @@ public class MessengerStateMachine : MonoBehaviour {
             selectedOption = optionNumber;
             ChatFillin.inst.PopulateText(currentOptions[selectedOption].Key);
             ChangeState(MessengerStates.WritingText);
-            
-            // var clickSound = Resources.Load("SFX/Keyboard_Click_0"+UnityEngine.Random.Range(0, 4)) as AudioClip;
-            // SFX.PlayAt(clickSound, Camera.main.transform.position, 1f);
+
+            AudioManager.PlayOneShot("Keyboard_Click_0" + UnityEngine.Random.Range(1, 4));
         }
     }
     public void SendButtonPressed()
@@ -186,8 +185,8 @@ public class MessengerStateMachine : MonoBehaviour {
             currentOptions = null;
             //Send Message
             ChangeState(MessengerStates.DialogChoices);
-            var sound = Resources.Load("SFX/Message_Send") as AudioClip;
-            SFX.PlayAt(sound, Camera.main.transform.position, 1f);
+
+            AudioManager.PlayOneShot("Message_Send");
         }
     }
     //View Mode States
@@ -213,7 +212,7 @@ public class MessengerStateMachine : MonoBehaviour {
     //DialogChoices
     void EnterDialogChoices()
     {
-        
+
         ExitButton.interactable = true;
         //Ask for dialog choices
         //Populate dialog choices
@@ -225,7 +224,7 @@ public class MessengerStateMachine : MonoBehaviour {
     }
     void ExitDialogChoices()
     {
-        
+
         ExitButton.interactable = false;
         //Clear dialog choices
     }
@@ -278,8 +277,8 @@ public class MessengerStateMachine : MonoBehaviour {
         {
             OnUpdate();
         }
-        
+
 	}
 
-    
+
 }

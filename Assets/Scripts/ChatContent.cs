@@ -30,7 +30,7 @@ public class ChatContent : ScriptableObject
     public float currentHeight = 20;
     public float padding = 10;
     public static int LineSizeEstimate = 36;
-   // public static float CharWidthEstimate 
+   // public static float CharWidthEstimate
     public static float TextLineHeight = 45f;
     [System.NonSerialized]
     public ChatContentGameObj myGameObj;
@@ -99,12 +99,10 @@ public class ChatContent : ScriptableObject
         //Resize Chatlog to account for new stuff
         ChatLog.Add(newListPart);
 
-        var sound = Resources.Load("SFX/Vibrate") as AudioClip;
-        SFX.PlayAt(sound, Camera.main.transform.position, 0.3f);
-        sound = Resources.Load("SFX/Message_Recieve") as AudioClip;
-        SFX.PlayAt(sound, Camera.main.transform.position, 1f);
-
-     //   myGameObj.Spacer.transform.SetAsLastSibling();
+        if (sender == MessageSender.NPC) {
+          AudioManager.PlayOneShot("Message_Recieve");
+          AudioManager.PlayOneShot("Vibrate", 0.2f);
+        }
     }
 
     public void TypeForSeconds(float time)
@@ -137,10 +135,10 @@ public class ChatContent : ScriptableObject
 
     public void EndTyping()
     {
-        
+
         Destroy(currentTypingBar);
         currentTypingBar = null;
-        
+
         // currentHeight -= TypingBarEstimate;
         // Vector2 windowDelta = myGameObj.GetComponent<RectTransform>().sizeDelta;
         // windowDelta.y = currentHeight;
@@ -186,6 +184,6 @@ public class ChatContent : ScriptableObject
                 yield return null;
             }
         }
-        
+
     }
 }
