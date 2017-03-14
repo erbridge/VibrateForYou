@@ -35,6 +35,9 @@ public class ChatContent : ScriptableObject
     [System.NonSerialized]
     public ChatContentGameObj myGameObj;
 
+    [System.NonSerialized]
+    public ScrollController scrollController;
+
     public GameObject currentTypingBar;
     // Use this for initialization
     void Awake()
@@ -98,6 +101,8 @@ public class ChatContent : ScriptableObject
         newListPart.sender = sender;
         //Resize Chatlog to account for new stuff
         ChatLog.Add(newListPart);
+
+        scrollController.ScrollToBottom();
 
         if (sender == MessageSender.NPC) {
           AudioManager.PlayOneShot("Message_Recieve");
