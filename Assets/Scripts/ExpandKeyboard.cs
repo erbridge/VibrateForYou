@@ -37,15 +37,16 @@ public class ExpandKeyboard : Selectable
     {
         MessengerStateMachine.instance.ChatBarClicked();
     }
+
     public void OnMoveKeyboard(bool Expand)
     {
         isUp = Expand;
         //print("Keyboard moved up: " + isUp);
         if (Expand)
         {
-            
+
             Keyboard.GetComponent<Animator>().SetTrigger("BringUpKeyboard");
-            setViewPortHeight(900);
+            setViewPortHeight(847.5f);
         /*
             Direction = 1;
             if (!isAnimating)
@@ -59,7 +60,7 @@ public class ExpandKeyboard : Selectable
         else
         {
             Keyboard.GetComponent<Animator>().SetTrigger("CollapseKeyboard");
-            setViewPortHeight(0);
+            setViewPortHeight(147.5f);
         /*
             Direction = -1;
             if (!isAnimating)
