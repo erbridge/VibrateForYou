@@ -1034,6 +1034,7 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 657919250}
   Viewport: {fileID: 0}
+  Scrollbar: {fileID: 0}
   Keyboard: {fileID: 1617374585}
   isUp: 1
 --- !u!1 &702041994 stripped
@@ -1658,6 +1659,7 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1014994516}
   Viewport: {fileID: 1853853817}
+  Scrollbar: {fileID: 1479125200}
   Keyboard: {fileID: 1617374585}
   isUp: 1
 --- !u!1 &1070105671
@@ -2797,7 +2799,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1733984373}
         m_MethodName: StopScrolling
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

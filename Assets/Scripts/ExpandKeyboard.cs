@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class ExpandKeyboard : Selectable
 {
     public RectTransform Viewport;
+    public RectTransform Scrollbar;
     public Image Keyboard;
     bool PointerIsOver = false;
     bool Clicked = false;
@@ -31,6 +32,7 @@ public class ExpandKeyboard : Selectable
     void setViewPortHeight(float height)
     {
         Viewport.offsetMin = new Vector2(Viewport.offsetMin.x, height);
+        Scrollbar.offsetMin = new Vector2(Scrollbar.offsetMin.x, height);
     }
 
     public override void OnPointerDown(PointerEventData eventData)
