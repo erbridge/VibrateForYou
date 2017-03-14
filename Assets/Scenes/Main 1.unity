@@ -325,10 +325,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 1.0000004
       objectReference: {fileID: 0}
-    - target: {fileID: 1856356403433242, guid: f5ecf960e1ec44ea88ed16ae66ad0274, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f5ecf960e1ec44ea88ed16ae66ad0274, type: 2}
   m_IsPrefabParent: 0
@@ -3383,7 +3379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Content: {fileID: 2072322072}
   m_Horizontal: 0
-  m_Vertical: 0
+  m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
@@ -4523,7 +4519,7 @@ Prefab:
     - target: {fileID: 224991238620090886, guid: 4ca9aa82979cb4996b869d1b3756951f,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -297.5
+      value: -102.5
       objectReference: {fileID: 0}
     - target: {fileID: 224991238620090886, guid: 4ca9aa82979cb4996b869d1b3756951f,
         type: 2}
