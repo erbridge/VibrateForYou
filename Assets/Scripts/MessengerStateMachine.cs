@@ -173,7 +173,7 @@ public class MessengerStateMachine : MonoBehaviour {
             ChatFillin.inst.PopulateText(currentOptions[selectedOption].Key);
             ChangeState(MessengerStates.WritingText);
 
-            AudioManager.PlayOneShot("Keyboard_Click_0" + UnityEngine.Random.Range(1, 4));
+            AudioManager.PlayOneShot("Keyboard_Click_0" + UnityEngine.Random.Range(1, 4), 0.3f);
         }
     }
     public void SendButtonPressed()
